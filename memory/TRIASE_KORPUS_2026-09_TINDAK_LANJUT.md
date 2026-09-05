@@ -29,13 +29,13 @@ Keputusan pemilik: **"Hapus yang sudah basi, ubah sisanya."**
 | `backend_test_f6_approval_retirement.py` | 46/47 | finance kini boleh lihat backlog approval |
 | `backend_test_fase4.py` | 19/21 | 409 gerbang baru |
 | `backend_test_fase_f_final.py` | ~18/24 | kata 'Scan' di onboarding gudang (audit_i18n pra-eksisting) |
-| `backend_test_fase_f_write_flows.py` | ~12/13 | issue material: stok tidak turun — **PERLU DIBACA** (mungkin bug) |
+| `backend_test_fase_f_write_flows.py` | ~12/13 | SELESAI DIBACA: LULUS penuh di seed bersih — roll 800→50 adalah residu urutan korpus, bukan bug |
 | `backend_test_g6.py` | ~18/21 | "tanpa auth → 200": uji hanya mencabut header, kuki sesi masih ada — auth kini kuki |
 | `backend_test_h1.py` | 27/28 | 403 matriks izin |
 | `backend_test_iteration_183.py` | ~11/16 | baseline hitungan sample_issue berubah (data demo) |
 | `backend_test_m0_color.py` | 19/20 | wajib jenis kain + GSM untuk stage Grey (FASE T) |
 | `backend_test_phase2_forms.py` | ~34/38 | prefiks nomor log kendaraan berubah |
-| `backend_test_po_timeline_approval.py` | 10/14 | endpoint 404 — **PERLU DIBACA** |
+| `backend_test_po_timeline_approval.py` | 11/11 | SELESAI: asersi basi (`po_00009` vs id seed `po_009`) → dibetulkan |
 | `backend_test_qc.py` / `_qc_4point.py` | 19/21 · 10/12 | bentuk respons QC berubah |
 | `backend_test_r1_05_06.py` / `_r6_3_budget.py` | 4/5 · ~25/29 | validasi 400 baru |
 

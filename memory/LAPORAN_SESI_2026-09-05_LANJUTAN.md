@@ -45,9 +45,18 @@ kegagalan di tengah TERLIHAT) tanpa perubahan infra, dan bisa ditegakkan statik.
   ux_audit, audit_i18n_id) — nol regresi; 2 gate baru hijau.
 - Testing agent iteration_314: semua PASS (backend saga/CAS/stuck-lock/reopen + frontend badge & reopen).
 
+## Tindak lanjut 2026-09-05 (sesi 3)
+- **Ratchet turun 67 → 62**: klaim atomik dipasang di service `purchase_return_service.reverse_settlement`,
+  `return_service.reverse_settlement`, `putaway_order_service.confirm_arrival` (klaim sesudah guard, `finish_set` di tulisan
+  akhir); `POST /sales-orders` diakui **compensate** (id baru per permintaan; roll dilepas di `except`). Guard INV-ATOMIC-01
+  kini memverifikasi mekanisme `service` (sumber fungsi service wajib berisi claim+finish) dan `compensate` (`except → await
+  release_…`); self-test 16 kasus. `saga_locks.LOCKED_COLLECTIONS` +purchase_returns, sales_returns, putaway_orders.
+- **Dua skrip ragu selesai**: `fase_f_write_flows` LULUS penuh di seed bersih (roll 800→50 = residu urutan korpus, bukan bug);
+  `po_timeline_approval` = asersi basi (`po_00009` vs id seed `po_009`) → dibetulkan, 11/11.
+- `.restore_env.sh` langkah [3b]: menolak lanjut bila `CORS_ORIGINS` kosong/`*` + berhenti bila `/api/` bukan 200 (tail log).
+- **Panel "Kunci Saga"** di Pusat Pengaturan (tab admin-only): daftar kunci menggantung + alasan gagal + tombol lepas
+  (konfirmasi via `askConfirm`, INV-UI-06). Testing agent iteration_315 semua PASS; gate `--quick` merah = 5 pra-eksisting.
+
 ## Terbuka / keputusan berikutnya
-- 67 endpoint multi-koleksi masih BELUM DITINJAU (ratchet menjaga agar tidak bertambah). Prioritas berikut: reverse settlement
-  retur beli/jual (5 koleksi, lewat service), putaway confirm-arrival, `POST /sales-orders` (alokasi roll).
-- 2 skrip lulus-sebagian PERLU DIBACA: `backend_test_fase_f_write_flows.py` (roll 800→50 saat issue material — kemungkinan residu
-  urutan) dan `backend_test_po_timeline_approval.py` (matriks approval PO kini butuh admin).
-- `backend/.env` wajib berisi `CORS_ORIGINS` eksplisit — pertimbangkan `.restore_env.sh` memeriksanya (gagal berisik) sebelum restart.
+- 62 endpoint multi-koleksi masih BELUM DITINJAU (ratchet). Berikutnya: `POST /sales-orders/{id}/items/{pid}/reallocate` &
+  `/release-rolls`, `payment-variances/{id}/reverse`, `vendor-bills/{id}/cancel`, `sales-returns/{id}/reverse-writeoff`.

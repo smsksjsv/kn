@@ -20,13 +20,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Search, SlidersHorizontal, ShieldCheck, History, Wand2, Loader2, RefreshCw,
-  CheckCircle2, AlertTriangle, X, Building2, ChevronRight, Globe2,
+  CheckCircle2, AlertTriangle, X, Building2, ChevronRight, Globe2, Lock,
 } from "lucide-react";
 import ErrorNotice from "../../../components/ErrorNotice";
 import KNSelect from "../../../components/KNSelect";
 import SettingCard from "./SettingCard";
 import ImpactPicker from "./ImpactPicker";
 import ConfigHealthPanel from "./ConfigHealthPanel";
+import SagaLocksPanel from "./SagaLocksPanel";
 import {
   WhyThisValueDrawer, SimulatorPanel, ChangeHistoryDrawer, ChangeHistoryInline,
 } from "./ConfigDrawers";
@@ -39,6 +40,7 @@ const TABS = [
   { k: "health", label: "Kesehatan Konfigurasi", icon: ShieldCheck },
   { k: "history", label: "Riwayat Perubahan", icon: History },
   { k: "impact", label: "Koreksi Harga & Daftar Dampak", icon: Wand2 },
+  { k: "saga", label: "Kunci Saga", icon: Lock, adminOnly: true },
 ];
 
 /**
@@ -267,7 +269,7 @@ export default function SettingsHub({
       </header>
 
       <nav className="tab-pills cfg-tabs" role="tablist">
-        {TABS.filter((t) => t.k !== "impact" || caps.impact_apply).map((t) => (
+        {TABS.filter((t) => (t.k !== "impact" || caps.impact_apply) && (!t.adminOnly || isAdmin)).map((t) => (
           <button
             key={t.k}
             role="tab"
@@ -474,6 +476,8 @@ export default function SettingsHub({
           }}
         />
       ) : null}
+
+      {tab === "saga" && isAdmin ? <SagaLocksPanel /> : null}
 
       {tab === "history" ? (
         <section className="cfg-history-tab" data-testid="cfg-history-tab">

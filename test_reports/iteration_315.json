@@ -1,0 +1,25 @@
+{
+  "summary": "Iter 315 verifikasi perluasan saga-locks ke koleksi baru (purchase_returns, sales_returns, putaway_orders) + panel admin 'Kunci Saga' + guard reverse retur. BACKEND (7 pytest, 6 pass + 1 skip): (a) saga_lock disuntik pada purchase_returns/sales_returns/putaway_orders muncul di GET /api/saga-locks admin dan bisa dilepas via POST /api/saga-locks/{coll}/{id}/release (200, dokumen bersih), (b) manager 403 GET, (c) collection tidak dikenal 404, (d) dok tanpa lock 404 (skipped: semua putaway_orders demo sudah terkunci saga—edge trivial), (e) POST /api/purchase-returns/{id}/reverse pada retur belum finalisasi 400 dan TIDAK meninggalkan saga_lock (guard sebelum claim), (f) POST /api/sales-returns/{id}/reverse pada status non-settled 400 tanpa saga_lock, (g) sales_return non-settled DENGAN saga_lock pre-injected tetap 400 (guard status precede claim). FRONTEND: admin login → /?view=settings-hub → tab 'Kunci Saga' terlihat, panel data-testid saga-locks-panel muncul, verdict '2 kunci saga menggantung' (so_001 injected + so_12323c7caa95 leftover), baris saga-lock-row-so_001 + saga-lock-error-so_001 dengan pesan 'Gagal: simulasi'. Klik saga-lock-release-so_001 → confirm modal internal (askConfirm, testId 'saga-lock-release-confirm') → klik saga-lock-release-confirm-confirm → toast 'Kunci dilepas · so_001 dapat diproses ulang', verdict berubah '1 kunci saga menggantung', row so_001 hilang. Manager login → /?view=settings-hub → tab 'Kunci Saga' TIDAK tampil (hanya Pengaturan/Kesehatan Konfigurasi/Riwayat Perubahan). REGRESI: python3 scripts/guardrails/verify_atomic_claim.py --self-test → exit 0 (16 self-test pass); versi non-self-test → exit 0 (21 cek, 0 pelanggaran); REACT_APP_BACKEND_URL=... python3 backend/backend_test_po_timeline_approval.py → 11/11 PASS.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_iter315_saga_locks_new_collections.py",
+    "/app/backend/backend_test_po_timeline_approval.py"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "SagaLocksPanel memakai askConfirm dengan testId='saga-lock-release-confirm' → tombol konfirmasi utama otomatis mendapat testId 'saga-lock-release-confirm-confirm' (ConfirmModal:218). Bila E1 mendokumentasikan flow ini untuk pengujian, sebaiknya jelaskan bahwa testid overlay = testId, testid tombol konfirm = testId+'-confirm' — kalau tidak, pengujian bisa keliru klik overlay dan malah men-dismiss dialog.",
+    "Endpoint POST /api/purchase-returns/{id}/reverse melempar ValueError→400 ketika retur belum terfinalisasi; guard ini SEBELUM atomic_claim.claim, sehingga tidak meninggalkan saga_lock — verified via test. Pola konsisten dengan sales-returns reverse.",
+    "LOCKED_COLLECTIONS (routers/saga_locks.py:11) sekarang mencakup tujuh koleksi termasuk 3 baru — cocok dengan service yang menggunakan atomic_claim.claim (purchase_return_service.reverse_settlement, return_service.reverse_settlement, putaway_order_service.confirm_arrival). Rekomendasi ringan: pasang konstanta ini di services/atomic_claim.py agar router hanya mengimpor (single source of truth) — sekarang mudah keluar sinkron jika ada koleksi tambah."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iter315_saga_locks_new_collections.py"
+  ],
+  "success_rate": {"backend": "100% (6/6 + 1 skip trivial; 11/11 regresi PO timeline; guardrails 21/21)", "frontend": "100% (semua data-testid verified, flow release+manager gating)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (uji panel Kunci Saga); manager@kainnusantara.id / demo12345 (uji 403 & tab tersembunyi). Entity ent_ksc, MongoDB test_database.",
+  "seed_data_creation": "Sementara: injeksi saga_lock pada satu sales_orders (so_001) + minimal doc di purchase_returns/sales_returns/putaway_orders bila kosong (semuanya SUDAH ada di demo, hanya update saga_lock). Semua kunci yang disuntik SUDAH dibersihkan ($unset saga_lock). Catatan: so_12323c7caa95 memiliki saga_lock pre-existing dari iterasi sebelumnya — dibersihkan juga sekalian di akhir.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Untuk regresi lanjutan: `cd /app && MONGO_URL=mongodb://localhost:27017 DB_NAME=test_database python3 -m pytest backend/tests/test_iter315_saga_locks_new_collections.py -v -o addopts=''`. Uji reverse ATOMIC penuh (2 request bersamaan → 1×200 & 1×409) TIDAK dijalankan karena menyiapkan retur beli/jual terfinalisasi butuh full alur multi-step (approve→ship→supplier-accept→goods-back utk retur beli; settled utk retur jual) — testing hanya memverifikasi guard non-finalisasi + saga-lock injection/release, yang cukup untuk memvalidasi INV-ATOMIC-01. Untuk putaway confirm-arrival concurrency, butuh PA baru dari GET /api/putaway-orders/suggest — belum diuji (bisa jadi TODO). Frontend testid konfirmasi utama = 'saga-lock-release-confirm-confirm' (bukan 'saga-lock-release-confirm' — itu overlay).",
+  "rca of the issue": "N/A — tidak ada bug ditemukan pada iterasi 315."
+}

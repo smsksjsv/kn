@@ -27,7 +27,10 @@ Admin · Manajer · Admin Sales · Finance · Sales · Gudang · Desainer · Sop
 - T-01 Langkah 1 klaim atomik `resolve-escalation` outbound (+probe ulang-jalan) · Langkah 2 `memory/INVENTARIS_MULTI_KOLEKSI_2026-09.md` (87 endpoint).
 
 ## Yang dikerjakan 2026-09-05 sesi lanjutan (repo `pandeyoga/kn123`; rincian: `memory/LAPORAN_SESI_2026-09-05_LANJUTAN.md`)
-- Keputusan T-01: **Opsi B saga** — `services/atomic_claim.py` (claim/finish_set/release), `routers/saga_locks.py` (admin list+release), klaim di 9 endpoint + CAS `so_transition`/PO close/cancel; guard **INV-ATOMIC-01** (`verify_atomic_claim.py`, ratchet baseline 67) di gate.
+- Keputusan T-01: **Opsi B saga** — `services/atomic_claim.py` (claim/finish_set/release), `routers/saga_locks.py` (admin list+release), klaim di 12 endpoint (9 router + 3 service: reverse retur beli/jual, putaway confirm-arrival) + CAS `so_transition`/PO close/cancel + compensate `POST /sales-orders`; guard **INV-ATOMIC-01** (`verify_atomic_claim.py`, ratchet baseline 62, mekanisme claim/cas/service/compensate) di gate.
+- Panel admin "Kunci Saga" di Pusat Pengaturan (`SagaLocksPanel.jsx`, tab admin-only) — daftar & lepas `saga_lock` menggantung.
+- `.restore_env.sh` [3b] gagal berisik bila `CORS_ORIGINS` kosong/`*` atau backend bukan 200.
+- Skrip ragu selesai: `fase_f_write_flows` lulus di seed bersih; `po_timeline_approval` id seed dibetulkan (11/11).
 - T-05: `scripts/codemod_env_url.py` → 67 berkas URL→env; 21 skrip lulus penuh lagi; 11 skrip basi dihapus (korpus 210). Dok: `memory/TRIASE_KORPUS_2026-09_TINDAK_LANJUT.md`.
 - Seed: `clear_collections` dinamis (semua koleksi kecuali `KEEP_MASTER`) + `_replant_bootstrap()` → md@/wh.admin@ & fondasi hidup tanpa restart.
 - Eskalasi menggantung: `POST /outbound/tasks/{id}/reopen-escalation` + lencana/panel/tombol di `EscalationManagement.jsx`.
@@ -35,7 +38,7 @@ Admin · Manajer · Admin Sales · Finance · Sales · Gudang · Desainer · Sop
 - Testing agent iteration_314: semua PASS. `gate.sh --quick`: 5 merah pra-eksisting saja.
 
 ## Backlog (prioritas)
-- P0 67 endpoint multi-koleksi BELUM DITINJAU (INV-ATOMIC-01 ratchet): mulai reverse settlement retur beli/jual, putaway confirm-arrival, `POST /sales-orders`.
-- P1 T-05: baca 76 skrip `TIDAK TAHU` + 2 skrip lulus-sebagian "PERLU DIBACA" (`fase_f_write_flows`, `po_timeline_approval`); T-03 Lapis 4 paginasi 3 router; T-04 perbaiki 2 lokasi `PERBAIKI`; `inbound_receiving` resolve-escalation (pola klaim).
-- P1 `warehouse_id` saran reorder (keputusan pemilik masih terbuka); `.restore_env.sh` memeriksa `CORS_ORIGINS` sebelum restart.
+- P0 62 endpoint multi-koleksi BELUM DITINJAU (INV-ATOMIC-01 ratchet): berikutnya SO reallocate/release-rolls, payment-variances reverse, vendor-bills cancel, sales-returns reverse-writeoff.
+- P1 T-05: baca 76 skrip `TIDAK TAHU`; T-03 Lapis 4 paginasi 3 router; T-04 perbaiki 2 lokasi `PERBAIKI`; `inbound_receiving` resolve-escalation (pola klaim).
+- P1 `warehouse_id` saran reorder (keputusan pemilik masih terbuka).
 - P2 5 gate `--quick` merah pra-eksisting (INV-UI-01/UI-10/UX-01/i18n); T-10 daftar saudara 459 endpoint; jalankan CI di GitHub.

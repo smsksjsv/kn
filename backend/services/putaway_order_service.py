@@ -170,6 +170,10 @@ async def confirm_arrival(order_id: str, scanned_epcs: Optional[List[str]],
     order = await _get(order_id, scope_ids)
     if order["status"] not in ("open", "in_transit"):
         raise HTTPException(status_code=400, detail=f"PA berstatus {order['status']}")
+    # INV-ATOMIC-01 (T-01 Opsi B) — klaim PA sebelum roll/tag/mutasi ditulis (bulk).
+    from services import atomic_claim as _saga
+    await _saga.claim("putaway_orders", order_id, "putaway_confirm_arrival",
+                      precondition={"status": {"$in": ["open", "in_transit"]}}, actor=actor_name)
     scanned = {e.strip().upper() for e in (scanned_epcs or []) if e and e.strip()}
     arrived, exceptions = [], []
     for item in order["items"]:
@@ -214,10 +218,10 @@ async def confirm_arrival(order_id: str, scanned_epcs: Optional[List[str]],
                            "putaway_order_id": order_id})
     btg = await next_doc_number("putaway_orders", "btg_number", "BTG") if arrived else None
     status = "completed" if not exceptions else ("completed_with_exception" if arrived else "exception")
-    await db.putaway_orders.update_one({"id": order_id}, {"$set": {
+    await db.putaway_orders.update_one({"id": order_id}, _saga.finish_set({
         "items": order["items"], "status": status, "btg_number": btg,
         "arrived_count": len(arrived), "exception_count": len(exceptions),
-        "confirmed_at": now, "confirmed_by": actor_name, "updated_at": now}})
+        "confirmed_at": now, "confirmed_by": actor_name, "updated_at": now}))
     return await _get(order_id, scope_ids)
 
 

@@ -735,6 +735,11 @@ async def reverse_settlement(return_id: str, actor: str, reason: str = "") -> Di
 
     # ── ACTIONS (idempotent) ─────────────────────────────────────────────────
     from services import gl_service
+    # INV-ATOMIC-01 (T-01 Opsi B) — klaim retur SESUDAH guard, SEBELUM JE/roll/AP/kas ditulis.
+    from services import atomic_claim as _saga
+    await _saga.claim("purchase_returns", return_id, "purchase_return_reverse",
+                      precondition={"reversed": {"$ne": True}, "status": {"$ne": "cancelled"},
+                                    "stock_adjusted": True}, actor=actor)
     # a) Balik JE retur beli.
     rev_jes = await gl_service.reverse_document(
         "purchase_return", return_id,
@@ -797,10 +802,10 @@ async def reverse_settlement(return_id: str, actor: str, reason: str = "") -> Di
                       "updated_at": now}})
 
     # e) Void Nota Debit + status → cancelled + metadata reversal (append-only).
-    await db.purchase_returns.update_one({"id": return_id}, {"$set": {
+    await db.purchase_returns.update_one({"id": return_id}, _saga.finish_set({
         "status": "cancelled", "reversed": True, "reversed_by": actor, "reversed_at": now,
         "reversal_reason": reason, "reversal_je_ids": [j.get("id") for j in rev_jes],
-        "debit_note_voided": True, "stock_adjusted": False, "updated_at": now}})
+        "debit_note_voided": True, "stock_adjusted": False, "updated_at": now}))
 
     fresh = await db.purchase_returns.find_one({"id": return_id}, {"_id": 0})
     fresh = safe_doc(fresh)

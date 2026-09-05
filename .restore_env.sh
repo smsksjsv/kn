@@ -57,10 +57,27 @@ except Exception:
   fi
 done
 
+echo "=== [3b/7] backend/.env: CORS_ORIGINS wajib eksplisit (T-02 gagal-berisik) $(date)"
+# Template kontainer baru membawa CORS_ORIGINS="*" → server.py MENOLAK start (allow_credentials).
+# Lebih baik gagal di sini dengan pesan jelas daripada backend mati diam-diam & gate merah 000.
+_cors=$(grep -E '^CORS_ORIGINS=' /app/backend/.env 2>/dev/null | cut -d= -f2- | tr -d '"'"'" | tr -d ' ')
+if [ -z "$_cors" ] || [ "$_cors" = "*" ]; then
+  _fe=$(grep -E '^REACT_APP_BACKEND_URL=' /app/frontend/.env 2>/dev/null | cut -d= -f2- | tr -d '"'"'")
+  echo "!! CORS_ORIGINS di backend/.env kosong atau '*' — backend akan menolak start."
+  echo "   Isi contoh:  CORS_ORIGINS=\"${_fe:-https://<app>.preview.emergentagent.com},http://localhost:3000\""
+  echo "   (lihat komentar T-02 di backend/server.py; SESSION_COOKIE_SECURE=\"true\" untuk HTTPS)"
+  exit 1
+fi
+echo "CORS_ORIGINS ok: $_cors"
+
 echo "=== [4/7] restart backend — bootstrap fondasi menulis ke DB yang HIDUP $(date)"
 supervisorctl restart backend 2>&1 | tail -5
 sleep 12
-curl -s -o /dev/null -w "backend /api/ -> %{http_code}\n" http://localhost:8001/api/
+_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8001/api/)
+echo "backend /api/ -> $_code"
+if [ "$_code" != "200" ]; then
+  echo "!! backend tidak menjawab 200 — log terakhir:"; tail -n 20 /var/log/supervisor/backend.err.log; exit 1
+fi
 
 echo "=== [5/7] seed_realistic $(date)"
 cd /app

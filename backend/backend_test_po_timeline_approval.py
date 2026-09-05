@@ -267,21 +267,21 @@ class POTimelineApprovalTester:
         
         # PO-00009 (approved) - should have: created, submitted_for_approval, approved
         self.test_po_timeline_entries(
-            "po_00009", "PO-00009",
+            "po_009", "PO-00009",
             ["created", "submitted_for_approval", "approved"],
             self.manager_token
         )
         
         # PO-00008 (rejected) - should have: created, submitted_for_approval, rejected
         self.test_po_timeline_entries(
-            "po_00008", "PO-00008",
+            "po_008", "PO-00008",
             ["created", "submitted_for_approval", "rejected"],
             self.manager_token
         )
         
         # PO-00007 (waiting_approval) - should have: created, submitted_for_approval
         self.test_po_timeline_entries(
-            "po_00007", "PO-00007",
+            "po_007", "PO-00007",
             ["created", "submitted_for_approval"],
             self.manager_token
         )

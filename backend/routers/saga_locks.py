@@ -8,7 +8,8 @@ from services.atomic_claim import LOCK, release
 router = APIRouter(prefix="/api")
 
 # Koleksi induk yang endpoint-nya memakai `atomic_claim.claim()` — sumber: INV-ATOMIC-01.
-LOCKED_COLLECTIONS = ["wms_tasks", "sales_orders", "warehouse_transfers", "cycle_count_sessions"]
+LOCKED_COLLECTIONS = ["wms_tasks", "sales_orders", "warehouse_transfers", "cycle_count_sessions",
+                      "purchase_returns", "sales_returns", "putaway_orders"]
 
 
 @router.get("/saga-locks")

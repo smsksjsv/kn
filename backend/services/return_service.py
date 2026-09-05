@@ -1332,6 +1332,11 @@ async def reverse_settlement(return_id: str, actor: str, reason: str = "") -> Di
                 f"< terbit {rupiah(sc_info.get('issued', 0))}). Batalkan pemakaian store credit-nya lebih dulu.")
 
     # ── ACTIONS (idempotent) ────────────────────────────────────────────────
+    # INV-ATOMIC-01 (T-01 Opsi B) — klaim retur SESUDAH semua guard, SEBELUM JE dibalik/roll
+    # dihapus/kas di-void: dua reversal bersamaan tidak boleh sama-sama menulis.
+    from services import atomic_claim as _saga
+    await _saga.claim("sales_returns", return_id, "sales_return_reverse",
+                      precondition={"status": {"$in": list(st.SETTLED_STATES)}, "reversed": {"$ne": True}}, actor=actor)
     # a) Balik JE sales_return (revenue+PPN+piutang/kas/store-credit + HPP/persediaan).
     rev_jes = await gl_service.reverse_document(
         "sales_return", return_id, reason=reason or "Pembatalan/koreksi retur jual", actor_name=actor)
@@ -1380,7 +1385,7 @@ async def reverse_settlement(return_id: str, actor: str, reason: str = "") -> Di
         "reversal_reason": reason, "reversal_je_ids": [j.get("id") for j in rev_jes],
         "stock_adjusted": False, "updated_at": now,
     }
-    await db.sales_returns.update_one({"id": return_id}, {"$set": update})
+    await db.sales_returns.update_one({"id": return_id}, _saga.finish_set(update))
     ret = await db.sales_returns.find_one({"id": return_id})
     ret.pop("_id", None)
     ret["_reversal_summary"] = {"reversal_jes": len(rev_jes), "rolls_removed": len(rolls),
