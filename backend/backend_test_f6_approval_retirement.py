@@ -12,12 +12,13 @@ Changes tested:
 6. Entity scoping works correctly
 7. Oldest documents endpoint returns proper data
 """
+import os
 import requests
 import sys
 from typing import Dict, Any, List
 
 # Public endpoint from frontend/.env
-BASE_URL = "https://warehouse-ops-launch.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 # Test credentials from /app/memory/test_credentials.md
 CREDENTIALS = {

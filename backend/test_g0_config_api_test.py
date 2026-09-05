@@ -3,11 +3,12 @@
 Backend API Testing for FASE G-0 Configuration Center (Pusat Pengaturan)
 Tests config API endpoints with permission validation
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://kn-deep-link.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class ConfigAPITester:
     def __init__(self):

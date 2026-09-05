@@ -416,6 +416,10 @@ async def approve_transfer(transfer_id: str, payload: TransferApprove, request: 
     transfer, _ctx = await _guard_transfer(request, transfer_id, side="source")  # FASE E-0 (L13)
     if transfer["status"] != "waiting_approval":
         raise HTTPException(status_code=400, detail=f"Transfer tidak bisa diapprove (status: {transfer['status']})")
+    # T-01 Opsi B (INV-ATOMIC-01) — klaim sebelum kepemilikan roll pindah + jurnal diposting.
+    from services import atomic_claim as _saga
+    await _saga.claim("warehouse_transfers", transfer_id, "transfer_approve",
+                      precondition={"status": "waiting_approval"}, actor=actor["name"])
     
     # Sub-fase 1.5 — inter-company: APPROVE = pindahkan kepemilikan B→E (S3, 1 langkah) → status completed.
     if transfer.get("transfer_kind") == "inter_entity":
@@ -465,9 +469,9 @@ async def approve_transfer(transfer_id: str, payload: TransferApprove, request: 
             })
         updated = await db.warehouse_transfers.find_one_and_update(
             {"id": transfer_id},
-            {"$set": {"status": "completed", "approved_by": payload.approved_by,
+            _saga.finish_set({"status": "completed", "approved_by": payload.approved_by,
                       "approved_at": now_iso(), "ownership_moved": result,
-                      "je_intercompany": je_result, "updated_at": now_iso()}},
+                      "je_intercompany": je_result, "updated_at": now_iso()}),
             projection={"_id": 0}, return_document=ReturnDocument.AFTER,
         )
         await audit(actor["name"], "inter_company_transfer_executed", "transfer", transfer_id,
@@ -479,14 +483,12 @@ async def approve_transfer(transfer_id: str, payload: TransferApprove, request: 
 
     updated = await db.warehouse_transfers.find_one_and_update(
         {"id": transfer_id},
-        {
-            "$set": {
+        _saga.finish_set({
                 "status": "approved",
                 "approved_by": payload.approved_by,
                 "approved_at": now_iso(),
                 "updated_at": now_iso()
-            }
-        },
+        }),
         projection={"_id": 0},
         return_document=ReturnDocument.AFTER
     )
@@ -508,6 +510,9 @@ async def reject_transfer(transfer_id: str, payload: TransferReject, request: Re
     transfer, _ctx = await _guard_transfer(request, transfer_id, side="source")  # FASE E-0 (L13)
     if transfer["status"] != "waiting_approval":
         raise HTTPException(status_code=400, detail=f"Transfer tidak bisa direject (status: {transfer['status']})")
+    from services import atomic_claim as _saga
+    await _saga.claim("warehouse_transfers", transfer_id, "transfer_reject",
+                      precondition={"status": "waiting_approval"}, actor=actor["name"])
     
     # Sub-fase 1.5 — inter-company: lepas reservasi roll di entitas sumber.
     if transfer.get("transfer_kind") == "inter_entity":
@@ -518,15 +523,13 @@ async def reject_transfer(transfer_id: str, payload: TransferReject, request: Re
 
     updated = await db.warehouse_transfers.find_one_and_update(
         {"id": transfer_id},
-        {
-            "$set": {
+        _saga.finish_set({
                 "status": "rejected",
                 "rejected_by": payload.rejected_by,
                 "rejected_at": now_iso(),
                 "rejected_reason": payload.reason,
                 "updated_at": now_iso()
-            }
-        },
+        }),
         projection={"_id": 0},
         return_document=ReturnDocument.AFTER
     )
@@ -566,6 +569,10 @@ async def update_transfer_status(transfer_id: str, payload: TransferStatusUpdate
             status_code=400,
             detail=f"Invalid status transition: {current_status} → {new_status}"
         )
+    # T-01 Opsi B (INV-ATOMIC-01) — klaim sebelum roll dipindah (dispatch/receive).
+    from services import atomic_claim as _saga
+    await _saga.claim("warehouse_transfers", transfer_id, f"transfer_status:{new_status}",
+                      precondition={"status": current_status}, actor=actor["name"])
     
     # Roll-as-SSOT (KN_15 §9 / KN_16 §7) — transfer antar-gudang memindahkan ROLL,
     # BUKAN $inc balance. Balance selalu di-rebuild dari rolls oleh roll_service.
@@ -583,12 +590,10 @@ async def update_transfer_status(transfer_id: str, payload: TransferStatusUpdate
     # Update transfer status
     updated = await db.warehouse_transfers.find_one_and_update(
         {"id": transfer_id},
-        {
-            "$set": {
+        _saga.finish_set({
                 "status": new_status,
                 "updated_at": now_iso()
-            }
-        },
+        }),
         projection={"_id": 0},
         return_document=ReturnDocument.AFTER
     )

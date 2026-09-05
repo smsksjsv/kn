@@ -8,11 +8,12 @@ Tests:
 5. Approve PO from notification (role gating)
 6. Backend regression (list, approve, reject, cancel, pay, close)
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class POTimelineApprovalTester:
     def __init__(self):

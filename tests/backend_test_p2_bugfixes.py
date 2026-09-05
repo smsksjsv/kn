@@ -10,12 +10,13 @@ Verifies three P2 data-integrity/state bugs are fixed:
 Usage:
     cd /app && python tests/backend_test_p2_bugfixes.py
 """
+import os
 import sys
 import requests
 from typing import Dict, Any, List, Optional
 
 # Backend URL from environment
-BASE_URL = "https://bug-fix-sprint-27.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 API_BASE = f"{BASE_URL}/api"
 
 # Test credentials

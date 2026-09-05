@@ -15,7 +15,7 @@ import sys
 import requests
 from datetime import datetime
 
-BASE = os.environ.get("BACKEND_URL", "https://kn-form-gateway.preview.emergentagent.com").rstrip("/")
+BASE = os.environ.get("BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"]).rstrip("/")
 API = f"{BASE}/api"
 PASS, FAIL = [], []
 

@@ -1,0 +1,21 @@
+{
+  "summary": "Iteration 314 verifikasi 4 item audit 2026-09: (1) atomic_claim/saga-locks (GET admin=200, non-admin=403; visibility & release stuck lock), (2) CAS PO cancel (2 permintaan bersamaan → tepat 1×200 dan 1×400, akhirnya cancelled), (3) SO cancel saga (2 bersamaan → 1×200 & 1×409; no saga_lock left; GET tidak expose saga_lock), (4) escalation reopen flow (resolving→409 resolve, reopen→pending_review+reopened_by, second reopen→409, resolve→200). Regresi ringan GET inbound/outbound escalated=200. Frontend manajer /?view=escalations menunjukkan badge 'MENGGANTUNG (resolving)', escalation-hanging-count, panel penjelasan, tombol reopen-task; klik reopen → toast sukses & kartu berubah ke ESCALATED dengan resolve-task muncul. Semua 8 pytest LULUS.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_iter314_saga_and_reopen.py"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "saga_locks.LOCKED_COLLECTIONS mencakup wms_tasks/sales_orders/warehouse_transfers/cycle_count_sessions. PO memakai CAS langsung (bukan atomic_claim), jadi PO tidak muncul di /api/saga-locks — sesuai desain, tetapi bila kelak PO close/cancel dipindah ke saga penuh, tambahkan 'purchase_orders' pada LOCKED_COLLECTIONS.",
+    "reopen_outbound_escalation menggunakan find_one_and_update dengan filter {'escalation.status':'resolving'} — atomic dan idempotent (reopen kedua → 409). Konsisten dengan pola CAS."
+  ],
+  "updated_files": ["/app/backend/tests/test_iter314_saga_and_reopen.py"],
+  "success_rate": {"backend": "100% (8/8)", "frontend": "100% (semua data-testid & flow reopen terverifikasi)"},
+  "test_credentials": "admin@/manager@/warehouse@/sales@ kainnusantara.id — demo12345. UI login: manager@kainnusantara.id / demo12345, entity ent_ksc.",
+  "seed_data_creation": "Menggunakan data demo yang ada. Membatalkan 1 PO (status pending→cancelled) dan 1 SO reserved (→cancelled). Task outbound wms_e0ccd6588168 sebelumnya sudah dalam escalation.status=resolving; setelah reopen UI → ESCALATED lalu di-resolve final via API (state akhir: resolved). Injeksi saga_lock pada 1 SO dibersihkan otomatis (release+finally $unset).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Jalankan `cd /app && REACT_APP_BACKEND_URL=... MONGO_URL=... DB_NAME=... python3 -m pytest backend/tests/test_iter314_saga_and_reopen.py -v -o addopts='' -s`. Header X-Entity-Id=ent_ksc wajib untuk endpoint SO/PO/tasks. Ingat: /api/saga-locks hanya untuk admin; PO tidak muncul di /api/saga-locks (pakai CAS bukan atomic_claim). Test PO cancel dan SO cancel konsumtif — akan membatalkan dokumen pertama yang ditemukan; jalankan hanya bila data demo cukup atau setelah seed_realistic.py.",
+  "rca of the issue": "N/A — tidak ada bug ditemukan pada 4 item audit ini."
+}

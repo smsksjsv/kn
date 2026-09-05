@@ -3,11 +3,12 @@ Tests:
 1. Reorder suggestions with lead-time/ETA integration
 2. Price-deviation approval for PO
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 
 class Depth3EnhancementsTester:
     def __init__(self):

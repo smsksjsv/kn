@@ -2,11 +2,12 @@
 Backend Security Testing - KN-076/KN-079 P0/P1 Bug Fixes
 Tests auth enforcement, IDOR protection, numeric bounds validation
 """
+import os
 import requests
 import sys
 from typing import Dict, Any, Optional
 
-BASE_URL = "https://bug-fix-sprint-27.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class SecurityTester:
     def __init__(self):

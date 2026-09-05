@@ -192,6 +192,11 @@ async def approve_session(session_id: str, payload: CycleCountApprove, request: 
     session = safe_doc(await db.cycle_count_sessions.find_one({"id": session_id}, {"_id": 0}))
     if not session or session["status"] != "submitted":
         raise HTTPException(status_code=400, detail="Session belum disubmit")
+    # T-01 Opsi B (INV-ATOMIC-01) — klaim sesi sebelum selisih diterapkan ke roll:
+    # dua persetujuan bersamaan tidak boleh menyesuaikan stok dua kali.
+    from services import atomic_claim as _saga
+    await _saga.claim("cycle_count_sessions", session_id, "cycle_count_approve",
+                      precondition={"status": "submitted"}, actor=actor["name"])
     for discrepancy in session.get("discrepancies", []):
         diff = float(discrepancy["difference"])
         if abs(diff) < 0.001:
@@ -206,13 +211,13 @@ async def approve_session(session_id: str, payload: CycleCountApprove, request: 
     from pymongo import ReturnDocument
     updated = await db.cycle_count_sessions.find_one_and_update(
         {"id": session_id},
-        {"$set": {
+        _saga.finish_set({
             "status": "approved",
             "approved_by": actor["name"],
             "approved_at": now_iso(),
             "approval_reason": payload.reason,
             "updated_at": now_iso(),
-        }},
+        }),
         projection={"_id": 0},
         return_document=ReturnDocument.AFTER
     )

@@ -3,11 +3,12 @@ Backend API Testing for Special Orders (Sub-fase 1.12)
 
 Tests all CRUD operations, approval workflow, and status transitions.
 """
+import os
 import requests
 import sys
 from datetime import datetime, timedelta
 
-API_BASE = "https://po-pdf-sender.preview.emergentagent.com/api"
+API_BASE = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class SpecialOrderTester:
     def __init__(self):

@@ -14,7 +14,7 @@ import sys
 import requests
 from datetime import datetime
 
-BASE = "https://po-pdf-sender.preview.emergentagent.com"
+BASE = os.environ["REACT_APP_BACKEND_URL"]
 API = f"{BASE}/api"
 PASS, FAIL = [], []
 

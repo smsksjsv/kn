@@ -11,11 +11,12 @@ Tests:
 8. Verify multi_entity flag
 9. Regression: existing finance endpoints still work
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 EMAIL = "admin@kainnusantara.id"
 PASSWORD = "demo12345"
 

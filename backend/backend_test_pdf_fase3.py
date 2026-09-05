@@ -2,11 +2,12 @@
 Backend Test — PDF Template Designer (Fase 3)
 Tests all PDF endpoints: doc-types, sample, templates, branding, preview, render + RBAC.
 """
+import os
 import requests
 import sys
 from typing import Dict, Any
 
-BASE_URL = "https://static-bundle-2.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 
 class PdfTemplateTest:
     def __init__(self):

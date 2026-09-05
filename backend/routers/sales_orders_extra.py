@@ -728,6 +728,10 @@ async def release_reservation(order_id: str, request: Request) -> Dict[str, Any]
     assert_entity_access(order, "sales_orders", await entity_ctx(request))  # S#074 IDOR
     if order["status"] not in ["reserved", "waiting_approval", "approved", "waiting_stock"]:
         raise HTTPException(status_code=409, detail="Order tidak dalam status yang di-reserve")
+    # T-01 Opsi B (INV-ATOMIC-01) — klaim SO sebelum roll dilepas; tulisan akhir mencabut kunci.
+    from services import atomic_claim as _saga
+    await _saga.claim("sales_orders", order_id, "release_reservation",
+                      precondition={"status": order["status"]}, actor=actor["name"])
     # Release reservations di level ROLL (KN_15)
     await release_order_rolls(order_id)
     # Update order to draft status
@@ -741,7 +745,7 @@ async def release_reservation(order_id: str, request: Request) -> Dict[str, Any]
     # F4 — sinkronkan stage/sub_status untuk status baru (draft → Reserved/...).
     update_data.update(stage_fields({**order, **update_data}))
     order = await db.sales_orders.find_one_and_update(
-        {"id": order_id}, {"$set": update_data},
+        {"id": order_id}, _saga.finish_set(update_data),
         projection={"_id": 0}, return_document=ReturnDocument.AFTER
     )
     await audit(actor["name"], "reservation_released", "sales_order", order_id,
@@ -758,6 +762,11 @@ async def cancel_order(order_id: str, request: Request) -> Dict[str, Any]:
     assert_entity_access(order, "sales_orders", await entity_ctx(request))  # S#074 IDOR
     if order["status"] in ["done", "cancelled", "expired", "partially_shipped", "shipped"]:
         raise HTTPException(status_code=409, detail="Order tidak bisa dibatalkan (sudah terkirim sebagian/penuh atau terminal)")
+    # T-01 Opsi B (INV-ATOMIC-01) — klaim SO sebelum roll dilepas + task gudang dibatalkan
+    # + jurnal dibalik (3 koleksi tanpa transaksi). Kunci dicabut oleh `so_transition`.
+    from services import atomic_claim as _saga
+    await _saga.claim("sales_orders", order_id, "order_cancel",
+                      precondition={"status": order["status"]}, actor=actor["name"])
     if order["status"] in ["reserved", "waiting_approval", "approved", "confirmed", "waiting_stock",
                             "partially_picked", "picked"]:
         await release_order_rolls(order_id)

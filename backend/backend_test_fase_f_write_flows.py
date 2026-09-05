@@ -3,12 +3,13 @@ FASE F — Backend Write Flows Test (Iteration 180)
 Tests ONLY write operations (POST/PATCH) for R&D & Design module.
 Iteration 179 already verified GET APIs and UI rendering.
 """
+import os
 import requests
 import sys
 import json
 from datetime import datetime
 
-BASE_URL = "https://kn-supplier-verify.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class FaseFWriteFlowsTester:
     def __init__(self):

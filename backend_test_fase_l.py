@@ -3,11 +3,12 @@
 Backend API Testing for FASE L — LINI PRODUK (Product Lines)
 Testing comprehensive line filtering, line-gated accounts, and master lifecycle
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://stock-sync-246.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 PASSWORD = "demo12345"
 
 class FaseLAPITester:

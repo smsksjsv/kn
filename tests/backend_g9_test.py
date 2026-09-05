@@ -3,11 +3,12 @@
 Backend API Testing for FASE G-9 — Pusat Kasus Keuangan
 Testing all 11 user stories + 3 bug fixes
 """
+import os
 import requests
 import sys
 from typing import Dict, Any
 
-BASE_URL = "https://textile-erp-finance.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 CREDENTIALS = {
     "admin": {"email": "admin@kainnusantara.id", "password": "demo12345"},
     "manager": {"email": "manager@kainnusantara.id", "password": "demo12345"},

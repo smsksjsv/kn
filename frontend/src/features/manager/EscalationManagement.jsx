@@ -94,6 +94,19 @@ export default function ManagerEscalationDashboard({ user }) {
     }
   };
 
+  const handleReopen = async (task) => {
+    try {
+      await axios.post(`${API}/outbound/tasks/${task.id}/reopen-escalation`);
+      notifySuccess("Klaim dilepas", "Eskalasi kembali terbuka dan bisa diselesaikan lagi.");
+      fetchEscalatedTasks();
+    } catch (err) {
+      setError(apiErrorText(err, "Gagal membuka kembali eskalasi."));
+    }
+  };
+
+  const isHanging = (task) => task.escalation?.status === "resolving";
+  const hangingCount = escalatedTasks.filter(isHanging).length;
+
   const getTaskTypeBadge = (type) => {
     return type === "inbound" ? (
       <span className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
@@ -121,9 +134,16 @@ export default function ManagerEscalationDashboard({ user }) {
             <p className="text-sm text-[#3C3C43]">Tinjau & selesaikan tugas yang dieskalasi</p>
           </div>
         </div>
-        <span className="bg-red-100 text-red-700 text-sm font-bold px-4 py-2 rounded-full">
-          {escalatedTasks.length} Tugas
-        </span>
+        <div className="flex items-center gap-2">
+          {hangingCount > 0 && (
+            <span data-testid="escalation-hanging-count" className="bg-amber-100 text-amber-800 text-sm font-bold px-4 py-2 rounded-full">
+              {hangingCount} Menggantung
+            </span>
+          )}
+          <span className="bg-red-100 text-red-700 text-sm font-bold px-4 py-2 rounded-full">
+            {escalatedTasks.length} Tugas
+          </span>
+        </div>
       </div>
 
       {/* Filter */}
@@ -180,10 +200,24 @@ export default function ManagerEscalationDashboard({ user }) {
                     </p>
                   )}
                 </div>
-                <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">
-                  ESCALATED
+                <span
+                  data-testid={`escalation-status-${task.id}`}
+                  className={`text-xs font-semibold px-3 py-1 rounded-full ${isHanging(task) ? "bg-amber-100 text-amber-800" : "bg-red-100 text-red-700"}`}
+                >
+                  {isHanging(task) ? "MENGGANTUNG (resolving)" : "ESCALATED"}
                 </span>
               </div>
+
+              {isHanging(task) && (
+                <div data-testid={`escalation-hanging-${task.id}`} className="bg-amber-50 border border-amber-300 rounded-lg p-3 mb-3 text-sm">
+                  <p className="font-semibold text-amber-800">Penyelesaian terhenti di tengah</p>
+                  <p className="text-amber-700 text-xs mt-1">
+                    Diklaim {task.escalation.resolving_at ? new Date(task.escalation.resolving_at).toLocaleString("id-ID") : "—"} tetapi
+                    tidak pernah selesai (proses mati / koneksi putus). Roll mungkin sudah dilepas sebagian — periksa
+                    stok pesanan sebelum membuka kembali.
+                  </p>
+                </div>
+              )}
 
               {/* Qty Info */}
               <div className="bg-[#FFF3CD] border border-[#FFC107] rounded-lg p-3 mb-3">
@@ -211,6 +245,16 @@ export default function ManagerEscalationDashboard({ user }) {
               )}
 
               {/* Action Button */}
+              {isHanging(task) ? (
+                <button
+                  data-testid={`reopen-task-${task.id}`}
+                  onClick={() => handleReopen(task)}
+                  className="w-full bg-amber-500 hover:bg-amber-600 text-white rounded-full px-4 py-2 text-sm font-medium flex items-center justify-center gap-2"
+                >
+                  <XCircle size={14} />
+                  Buka Kembali Eskalasi (lepas klaim)
+                </button>
+              ) : (
               <button
                 data-testid={`resolve-task-${task.id}`}
                 onClick={() => {
@@ -223,6 +267,7 @@ export default function ManagerEscalationDashboard({ user }) {
                 <Eye size={14} />
                 Review & Resolve
               </button>
+              )}
             </div>
           ))
         )}

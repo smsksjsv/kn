@@ -4,11 +4,12 @@ FASE G-4 Comprehensive Backend API Testing
 Testing all document relations, reference numbers & digital signatures APIs
 from consumer perspective (not unit tests).
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://jasad-dokumen.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 PWD = "demo12345"
 
 USERS = {

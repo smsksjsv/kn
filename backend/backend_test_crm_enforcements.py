@@ -8,7 +8,7 @@ import os
 from datetime import datetime
 
 # Get backend URL from environment
-BACKEND_URL = os.getenv("REACT_APP_BACKEND_URL", "https://po-pdf-sender.preview.emergentagent.com")
+BACKEND_URL = os.getenv("REACT_APP_BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"])
 API_BASE = f"{BACKEND_URL}/api"
 
 class CRMEnforcementsTest:

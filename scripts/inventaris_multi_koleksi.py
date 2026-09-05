@@ -58,7 +58,8 @@ def calls_in(node: ast.AST) -> list[str]:
     return out
 
 
-def main() -> int:
+def collect_rows() -> list:
+    """[(router file, lineno, 'METHOD /path', direct, via, allc)] untuk endpoint tulis ≥2 koleksi."""
     idx = service_index()
     rows = []
     for f in sorted((BE / "routers").glob("*.py")):
@@ -85,6 +86,18 @@ def main() -> int:
             if len(allc) >= 2:
                 rows.append((f.name, n.lineno, path, sorted(direct), via, sorted(allc)))
     rows.sort(key=lambda r: -len(r[5]))
+    return rows
+
+
+def _reviewed():
+    sys.path.insert(0, str(ROOT / "scripts" / "guardrails"))
+    from verify_atomic_claim import REVIEWED  # noqa: E402
+    return REVIEWED
+
+
+def main() -> int:
+    rows = collect_rows()
+    reviewed = _reviewed()
     L = ["# Inventaris endpoint tulis ≥2 koleksi (T-01 Langkah 2) — dihasilkan `scripts/inventaris_multi_koleksi.py`", "",
          f"Total: **{len(rows)}** endpoint (router langsung + satu tingkat service). Penelusuran hanya SATU tingkat: "
          "service yang memanggil service lain TIDAK ikut dihitung — angka ini masih undercount.", "",
@@ -92,10 +105,11 @@ def main() -> int:
          "|---|---|---|---|---|---|---|"]
     for i, (fn, ln, path, direct, via, allc) in enumerate(rows, 1):
         substantive = [c for c in allc if c not in LOG_ONLY]
+        rv = next((v for (rf, frag), v in reviewed.items() if rf == fn and frag in path), None)
         if len(substantive) < 2:
             kls = "TIDAK RELEVAN (koleksi lain hanya log/audit/notifikasi)"
-        elif fn == "outbound_picking.py" and "resolve-escalation" in path:
-            kls = "AMAN — penjaga klaim atomik `escalation.status` (T-01 Langkah 1, 2026-09-05)"
+        elif rv:
+            kls = f"AMAN [{rv[0]}] — {rv[1]} (INV-ATOMIC-01)"
         else:
             kls = "BELUM DITINJAU — perlu pemeriksaan penjaga idempotensi satu per satu"
         via_s = "; ".join(f"`{k}`→{sorted(v)}" for k, v in via.items()) or "—"

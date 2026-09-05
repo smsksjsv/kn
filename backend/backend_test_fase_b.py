@@ -1,9 +1,10 @@
 """Backend test for Warehouse Fase B: Location/Putaway (B1) + Reorder/ROP (B2)."""
+import os
 import requests
 import sys
 from typing import Dict, Any, Optional
 
-BASE_URL = "https://warehouse-fase-b.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 
 class FaseBTester:
     def __init__(self):

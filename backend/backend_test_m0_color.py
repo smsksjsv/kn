@@ -2,11 +2,12 @@
 M0 — Color Library & Product Stage Backend Test
 Tests color CRUD, nearest color, permissions, and product stage fields.
 """
+import os
 import requests
 import sys
 from typing import Optional
 
-BASE_URL = "https://subcon-preview.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 
 class M0ColorTester:
     def __init__(self):

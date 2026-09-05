@@ -253,6 +253,11 @@ STATIK=(
   # `scripts/gen_codebase_map.py` dan memerah bila menyimpang >10% dari kode.
   "guard:codebase_map SELF-TEST (bukti-merah dua arah, 6 kasus)|python scripts/guardrails/verify_codebase_map.py --self-test"
   "guard:codebase_map (INV-DOC-01, CODEBASE_MAP.md selaras kode)|python scripts/guardrails/verify_codebase_map.py"
+  # AUDIT 2026-09 T-01 Opsi B — INV-ATOMIC-01. Tanpa replica set/transaksi: endpoint tulis
+  # multi-koleksi wajib klaim atomik (`atomic_claim.claim`) atau CAS berprasyarat status.
+  # Ratchet: jumlah "BELUM DITINJAU" hanya boleh turun (BASELINE_UNREVIEWED di skrip).
+  "guard:atomic_claim SELF-TEST (bukti-merah dua arah, 10 kasus)|python scripts/guardrails/verify_atomic_claim.py --self-test"
+  "guard:atomic_claim (INV-ATOMIC-01, saga/CAS endpoint multi-koleksi)|python scripts/guardrails/verify_atomic_claim.py"
   # FASE P5 — baseline UX (loading/empty/chart) akhirnya jadi GATE. Sebelum ini
   # `ux_audit.py` hanya dijalankan manual, tak punya `--self-test`, dan angkanya tak
   # pernah dibuktikan: dari 22 "ERROR" yang dilaporkannya, 17 ternyata TUDUHAN PALSU

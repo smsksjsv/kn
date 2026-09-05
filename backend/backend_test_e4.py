@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 
-BASE = os.environ.get("BACKEND_URL", "https://kn-entity-scoped.preview.emergentagent.com").rstrip("/")
+BASE = os.environ.get("BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"]).rstrip("/")
 API = f"{BASE}/api"
 PW = "demo12345"
 ADMIN = "admin@kainnusantara.id"

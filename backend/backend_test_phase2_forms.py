@@ -9,11 +9,12 @@ Comprehensive backend API testing for Phase 2:
 
 Run: python backend_test_phase2_forms.py
 """
+import os
 import requests
 import sys
 from typing import Dict, Any, Optional
 
-BASE_URL = "https://nav-validated.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 
 # Test credentials
 USERS = {

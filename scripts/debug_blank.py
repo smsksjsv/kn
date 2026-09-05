@@ -1,7 +1,8 @@
+import os
 import asyncio
 from playwright.async_api import async_playwright
 
-URL = "https://code-extend-8.preview.emergentagent.com"
+URL = os.environ["REACT_APP_BACKEND_URL"]
 
 async def main():
     async with async_playwright() as p:

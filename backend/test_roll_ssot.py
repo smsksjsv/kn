@@ -16,7 +16,7 @@ import requests
 import subprocess
 from datetime import datetime
 
-BASE = os.environ.get("BACKEND_URL", "https://epic-cannon-6.preview.emergentagent.com").rstrip("/")
+BASE = os.environ.get("BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"]).rstrip("/")
 API = f"{BASE}/api"
 PASS, FAIL = [], []
 

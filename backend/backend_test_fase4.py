@@ -2,12 +2,13 @@
 Backend Testing for FASE 4: SO Status 2-level SSOT (STAGE + SUB-STATUS)
 Tests stage/sub_status derivation, transition endpoints, guiding 409, and migration script.
 """
+import os
 import requests
 import sys
 import subprocess
 from typing import Dict, Any, Optional
 
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class TestRunner:
     def __init__(self):

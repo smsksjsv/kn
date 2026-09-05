@@ -1,10 +1,11 @@
 """Backend API Testing for Kain Nusantara - Fase 3 Purchasing/Procurement"""
+import os
 import requests
 import sys
 from datetime import datetime
 
 class Fase3PurchasingTester:
-    def __init__(self, base_url="https://po-pdf-sender.preview.emergentagent.com"):
+    def __init__(self, base_url=os.environ["REACT_APP_BACKEND_URL"]):
         self.base_url = base_url
         self.tokens = {}
         self.tests_run = 0
@@ -1059,7 +1060,7 @@ class Fase3PurchasingTester:
         return len(self.failed_tests) == 0
 
 def main():
-    tester = Fase3PurchasingTester("https://po-pdf-sender.preview.emergentagent.com")
+    tester = Fase3PurchasingTester(os.environ["REACT_APP_BACKEND_URL"])
     
     print("🚀 Starting Fase 3 Purchasing Backend Tests")
     print("="*80)

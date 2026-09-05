@@ -165,6 +165,22 @@ async def clear_collections():
     ]
     for col in cols:
         await db[col].delete_many({})
+    # Audit 2026-09 (temuan baru 1) — daftar statis di atas meninggalkan 42 koleksi berisi
+    # sesudah korpus uji berjalan (invoices, logistics_deliveries, entity_prices, rfid_*,
+    # penalties, special_orders, config_values, hr_*): gate --full memerah bukan karena bug.
+    # Maka SEMUA koleksi selain KEEP_MASTER ikut dikosongkan. KEEP_MASTER = master yang
+    # dibaca seed ini sendiri saat berjalan / taksonomi idempoten milik bootstrap.
+    KEEP_MASTER = {
+        "design_gallery",        # master desain (kode+versi+artwork), seed_rnd memakai ulang
+        "amendment_reasons",     # taksonomi, idempoten via ensure_reasons()
+        "expense_categories",    # dibaca seed_budgets() untuk pagu petty cash
+        "uom_conversion_rules",  # registry konversi GLOBAL (Fase B), bootstrap-owned
+        "bank_statement_formats", "rnd_person_divisions",
+    }
+    extra = [c for c in await db.list_collection_names()
+             if c not in cols and c not in KEEP_MASTER and not c.startswith("system.")]
+    for col in extra:
+        await db[col].delete_many({})
     # Nomor dokumen per-entitas dijaga sebagai sequence atomik di `number_sequences`.
     # Kalau counter TIDAK direset bersama transaksinya, seed ulang menghasilkan nomor
     # yang melompat (mis. KSC/SCT-00032 padahal hanya ada 7 kontrak) sehingga data demo
@@ -7068,6 +7084,19 @@ async def _finalize_qty_rolls(mongo_url: str) -> None:
         client.close()
 
 
+async def _replant_bootstrap() -> None:
+    """Jalankan `bootstrap.run_bootstrap()` (idempoten) dengan koneksi modul `db` backend."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent / "backend"))
+    import bootstrap as _bs          # noqa: PLC0415
+    from db import client as _c      # noqa: PLC0415
+    try:
+        await _bs.run_bootstrap()
+        n = await _bs.db.users.count_documents({"email": {"$in": ["md@kainnusantara.id", "wh.admin@kainnusantara.id"]}})
+        print(f"✅ Fondasi bootstrap ditanam ulang (akun md@/wh.admin@: {n}/2)")
+    finally:
+        _c.close()
+
+
 async def main():
     """Standalone CLI entry point — creates its own DB connection."""
     mongo_url = os.environ["MONGO_URL"]
@@ -7084,6 +7113,11 @@ async def main():
     # sengaja DETERMINISTIK & sempit: knit → lini knit, sisanya lini woven.
     await _finalize_line_codes(mongo_url)
     await _finalize_qty_rolls(mongo_url)
+    # Audit 2026-09 (temuan baru 2) — seed menghapus `users` sehingga akun bootstrap
+    # (md@, wh.admin@) hilang sampai backend di-restart; gate/korpus lalu memerah 401 di
+    # tempat yang salah. Kini fondasi bootstrap (akun MD/Admin Gudang, COA, hr_*, config)
+    # ditanam ulang DI DALAM seed — idempoten, hasil akhir identik dengan restart backend.
+    await _replant_bootstrap()
     print("\n📋 Summary:")
     print(f"  - {summary['users']} Users (admin, sales, manager, warehouse×2)")
     print(f"  - {summary['products']} Products (Batik, Tenun, Lurik, Songket, Ulos, Jumputan, Endek)")

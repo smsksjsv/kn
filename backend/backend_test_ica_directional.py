@@ -2,12 +2,13 @@
 Backend API Testing for KN-G6-ICA-CLOBBER Fix
 Testing inter-company accounts directional fix
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
 # Use public URL from frontend/.env
-BASE_URL = "https://g6b-reminders.preview.emergentagent.com"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"]
 
 class IntercoAccountsAPITester:
     def __init__(self):

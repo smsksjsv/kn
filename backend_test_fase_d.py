@@ -2,12 +2,13 @@
 FASE D — Backend API Testing for Design Requests
 Testing all backend requirements from the review request
 """
+import os
 import requests
 import sys
 from datetime import datetime, timedelta
 
 # Public endpoint from frontend/.env
-BASE_URL = "https://sales-roles-next.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class DesignRequestTester:
     def __init__(self):

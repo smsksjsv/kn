@@ -7,10 +7,11 @@ Tests:
 - Employee 360: GET /api/hr/employees/{id}/360 -> attendance_summary, payslips, documents, can_view_pii
 - Payslip PDF: GET /api/hr/payslips/{slip_id}/pdf -> PDF binary
 """
+import os
 import requests
 import sys
 
-BASE_URL = "https://kn-doc-esign-wire.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 CREDENTIALS = {"email": "admin@kainnusantara.id", "password": "demo12345"}
 
 class Test360Panels:

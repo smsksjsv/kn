@@ -417,6 +417,14 @@ async def complete_inbound_receiving(
             _variance["override_reason"] = _ovr
             _variance["overridden"] = True
 
+        # T-01 Opsi B (INV-ATOMIC-01) — klaim tugas SESUDAH semua validasi 400 dan
+        # SEBELUM roll/mutasi/PO ditulis: dua klik "Selesaikan" bersamaan tidak boleh
+        # melahirkan roll dobel. Kunci dicabut oleh tulisan status akhir di bawah.
+        from services import atomic_claim as _saga
+        await _saga.claim("wms_tasks", task_id, "inbound_complete",
+                          precondition={"status": {"$in": ["qc_check", "put_away"]}},
+                          actor=actor["name"])
+
         # P0-5 — base HPP roll dari harga PO saat GR (per BASE unit). Landed cost
         # (Fase 5.4) menambah di atas base ini. Fallback: harga_pokok produk.
         _po_doc = None
@@ -653,7 +661,7 @@ async def complete_inbound_receiving(
             **({"qc_status": "pending", "quarantine_qty": final_qty} if qc_on_receipt else {}),
             **({"supplier_dn_number": payload.supplier_dn.strip()}
                if (payload and payload.supplier_dn and payload.supplier_dn.strip()) else {}),
-        }},
+        }, "$unset": {"saga_lock": ""}},  # INV-ATOMIC-01 — tulisan akhir mencabut klaim
         projection={"_id": 0},
         return_document=ReturnDocument.AFTER
     )

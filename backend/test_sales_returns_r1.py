@@ -3,11 +3,12 @@
 R1 Sales Return State Machine Test
 Tests the complete lifecycle: draft → pending_approval → approved → inspecting → inspected → [refund_settled | credit_settled | nego_settled | rejected]
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://inventory-refund.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 TEST_USER = {"email": "admin@kainnusantara.id", "password": "demo12345"}
 
 class SalesReturnR1Tester:

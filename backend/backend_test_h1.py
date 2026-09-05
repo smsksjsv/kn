@@ -3,11 +3,12 @@
 H1 Attendance Module - Backend API Testing
 Tests all H1 attendance endpoints: shifts, geofences, devices, attendance, clock-in/out, import, recap
 """
+import os
 import requests
 import sys
 from typing import Dict, Any, Optional
 
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class H1TestRunner:
     def __init__(self):

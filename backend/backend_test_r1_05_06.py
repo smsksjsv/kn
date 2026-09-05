@@ -8,11 +8,12 @@ Test data:
 - Order so_001: prod_batik_mega sold=30, shipped=30, existing return=6
 - Product prod_benang_katun: sku BNG-KTN-001, reorder_point=250, available~90
 """
+import os
 import requests
 import sys
 from typing import Dict, Any, Optional
 
-BASE_URL = "https://kn123-backend-fixes.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 # Test credentials
 ADMIN_EMAIL = "admin@kainnusantara.id"

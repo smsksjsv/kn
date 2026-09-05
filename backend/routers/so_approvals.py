@@ -188,6 +188,12 @@ async def decide_approval(order_id: str, approval_id: str, payload: SoApprovalDe
         raise HTTPException(status_code=403,
             detail=f"Keputusan butuh role minimal '{entry.get('required_role')}'.")
     new_status = "approved" if decision == "approve" else "rejected"
+    # T-01 Opsi B (INV-ATOMIC-01) — klaim SO atas entri approval INI: dua penyetuju yang
+    # menekan bersamaan tidak boleh sama-sama menulis harga/kredit + memutuskan entri.
+    from services import atomic_claim as _saga
+    await _saga.claim("sales_orders", order_id, f"so_approval_decide:{approval_id}",
+                      precondition={"pending_approvals": {"$elemMatch": {"id": approval_id, "status": "pending"}}},
+                      actor=actor["name"], detail="Entri approval sudah diputuskan pihak lain. Muat ulang layar.")
     entry.update({"status": new_status, "decided_by": actor["name"], "decided_by_id": actor["id"],
                   "decided_at": now_iso(), "decision_notes": (payload.notes or "").strip()})
     atype = entry.get("type")
@@ -225,6 +231,7 @@ async def decide_approval(order_id: str, approval_id: str, payload: SoApprovalDe
             await set_order_rolls_status(order_id, "committed")
     await audit(actor["name"], f"so_approval_{new_status}", "sales_order", order_id,
                 {"type": atype, "approval_id": approval_id, "notes": (payload.notes or "").strip()})
+    await _saga.release("sales_orders", order_id)
     return safe_doc(await db.sales_orders.find_one({"id": order_id}, {"_id": 0}))
 
 

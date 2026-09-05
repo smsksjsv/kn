@@ -2,11 +2,12 @@
 Comprehensive RFID Backend API Testing (Fase 5)
 Tests all RFID endpoints, RBAC, SSOT regression, gate logic, and data integrity
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://warehouse-fase-b.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 ADMIN_EMAIL = "admin@kainnusantara.id"
 WAREHOUSE_EMAIL = "warehouse@kainnusantara.id"
 PASSWORD = "demo12345"

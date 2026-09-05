@@ -12,7 +12,7 @@ import sys
 import requests
 from typing import Dict, Any, List, Set
 
-BASE = os.environ.get("KN_BASE", "https://wms-inventory-dev.preview.emergentagent.com/api")
+BASE = os.environ.get("KN_BASE", os.environ["REACT_APP_BACKEND_URL"] + "/api")
 PWD = "demo12345"
 ENT_A = "ent_ksc"
 ENT_B = "ent_kanda"

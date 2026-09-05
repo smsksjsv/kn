@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 load_dotenv("/app/backend/.env")
 
 # Public endpoint from frontend/.env
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 MONGO_URL = os.environ["MONGO_URL"]
 DB_NAME = os.environ["DB_NAME"]
 

@@ -9,12 +9,13 @@ Tests:
 5. Deterministic document numbers
 6. All major endpoints regression check
 """
+import os
 import requests
 import sys
 import re
 from typing import Dict, Any, List
 
-BASE_URL = "https://nusantara-staging-1.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 class BackendTester:
     def __init__(self):

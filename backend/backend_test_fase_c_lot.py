@@ -22,7 +22,7 @@ import requests
 from datetime import datetime
 
 # Get backend URL from environment
-BASE = os.environ.get("BACKEND_URL", "https://kn-lot-tracking.preview.emergentagent.com").rstrip("/")
+BASE = os.environ.get("BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"]).rstrip("/")
 API = f"{BASE}/api"
 
 PASS, FAIL = [], []

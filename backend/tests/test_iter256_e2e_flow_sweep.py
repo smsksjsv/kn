@@ -6,7 +6,7 @@ import os
 import pytest
 import requests
 
-BASE = os.environ.get("REACT_APP_BACKEND_URL", "https://audit-fixes-kn.preview.emergentagent.com").rstrip("/")
+BASE = os.environ.get("REACT_APP_BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"]).rstrip("/")
 
 ACCOUNTS = {
     "admin":         "admin@kainnusantara.id",

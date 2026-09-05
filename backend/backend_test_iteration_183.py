@@ -10,7 +10,7 @@ import os
 import sys
 import requests
 
-BASE = os.environ.get("BASE_URL", "https://nusantara-staging-1.preview.emergentagent.com/api")
+BASE = os.environ.get("BASE_URL", os.environ["REACT_APP_BACKEND_URL"] + "/api")
 CREDS = {
     "admin": ("admin@kainnusantara.id", "demo12345"),
     "sales": ("sales@kainnusantara.id", "demo12345"),

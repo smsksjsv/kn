@@ -100,13 +100,16 @@ async def close_purchase_order_short(po_id: str, payload: POCloseRequest, reques
         raise HTTPException(status_code=404, detail="Purchase Order tidak ditemukan")
     if po.get("status") not in ("receiving", "partial", "pending"):
         raise HTTPException(status_code=400, detail=f"PO status '{po.get('status')}' tidak bisa ditutup-kurang")
+    # INV-ATOMIC-01 — CAS: prasyarat status di tulisan induk; task gudang menyusul idempoten ($nin).
     updated = await db.purchase_orders.find_one_and_update(
-        {"id": po_id},
+        {"id": po_id, "status": {"$in": ["receiving", "partial", "pending"]}},
         {"$set": {"status": "closed_short", "close_reason": payload.reason,
                   "closed_by": actor["name"], "closed_at": now_iso(), "updated_at": now_iso()},
          "$push": {"timeline": timeline_entry(
              "closed_short", "Ditutup-kurang", actor["name"], payload.reason or "")}},
         projection={"_id": 0}, return_document=ReturnDocument.AFTER)
+    if not updated:
+        raise HTTPException(status_code=409, detail="PO sudah berubah status oleh proses lain. Muat ulang layar.")
     # Batalkan inbound task yang belum selesai
     await db.wms_tasks.update_many(
         {"po_id": po_id, "status": {"$nin": ["completed", "cancelled"]}},
@@ -184,9 +187,9 @@ async def cancel_purchase_order(po_id: str, request: Request) -> Dict[str, Any]:
     if po["status"] not in ["pending", "receiving", "waiting_approval"]:
         raise HTTPException(status_code=400, detail=f"PO dengan status {po['status']} tidak bisa dibatalkan")
 
-    # Update PO status
+    # INV-ATOMIC-01 — CAS: prasyarat status di tulisan induk; task gudang menyusul idempoten.
     updated_po = await db.purchase_orders.find_one_and_update(
-        {"id": po_id},
+        {"id": po_id, "status": {"$in": ["pending", "receiving", "waiting_approval"]}},
         {"$set": {"status": "cancelled", "cancelled_by": actor["name"],
                   "cancelled_at": now_iso(), "updated_at": now_iso()},
          "$push": {"timeline": timeline_entry(
@@ -194,6 +197,8 @@ async def cancel_purchase_order(po_id: str, request: Request) -> Dict[str, Any]:
         projection={"_id": 0},
         return_document=ReturnDocument.AFTER
     )
+    if not updated_po:
+        raise HTTPException(status_code=409, detail="PO sudah berubah status oleh proses lain. Muat ulang layar.")
 
     # Cancel related inbound tasks
     await db.wms_tasks.update_many(

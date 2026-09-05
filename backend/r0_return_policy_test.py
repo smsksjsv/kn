@@ -4,12 +4,13 @@ R0 Return Policy Engine Backend Test
 Testing: Supplier return policy (embedded), Sales return policy CRUD,
          Eligibility check, Policy snapshot in sales returns, Auth validation
 """
+import os
 import requests
 import sys
 from datetime import datetime, timedelta
 
 # Use public endpoint from frontend/.env
-BASE_URL = "https://inventory-refund.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 # Test credentials from test_credentials.md
 TEST_USER = {"email": "admin@kainnusantara.id", "password": "demo12345"}

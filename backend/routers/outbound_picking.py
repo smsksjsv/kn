@@ -374,6 +374,29 @@ async def resolve_outbound_escalation(
     return safe_doc(updated_task)
 
 
+@router.post("/outbound/tasks/{task_id}/reopen-escalation")
+async def reopen_outbound_escalation(task_id: str, request: Request) -> Dict[str, Any]:
+    """Eskalasi MENGGANTUNG (`escalation.status == resolving`, proses mati di tengah) →
+    kembalikan ke `escalated` agar manajer bisa menyelesaikannya lagi. Manager only."""
+    actor = await require_permission(request, "wms", "approve")
+    task = safe_doc(await db.wms_tasks.find_one({"id": task_id}, {"_id": 0}))
+    if not task:
+        raise HTTPException(status_code=404, detail="Outbound task tidak ditemukan")
+    assert_entity_access(task, "wms_tasks", await entity_ctx(request))
+    updated = await db.wms_tasks.find_one_and_update(
+        {"id": task_id, "escalation.status": "resolving"},
+        {"$set": {"escalation.status": "pending_review", "escalation.reopened_by": actor["name"],
+                  "escalation.reopened_at": now_iso(), "updated_at": now_iso()},
+         "$unset": {"escalation.resolving_at": ""}},
+        projection={"_id": 0}, return_document=ReturnDocument.AFTER)
+    if not updated:
+        raise HTTPException(status_code=409, detail="Eskalasi tidak dalam keadaan menggantung (resolving).")
+    await audit(actor["name"], "outbound_escalation_reopened", "wms_task", task_id,
+                {"previous_resolving_at": (task.get("escalation") or {}).get("resolving_at")})
+    return safe_doc(updated)
+
+
+
 @router.post("/outbound/tasks/{task_id}/dispatch")
 async def dispatch_outbound(task_id: str, request: Request, ship_qty: float = None) -> Dict[str, Any]:
     """Sub-fase 1.8 — Dispatch task outbound (mendukung PENGIRIMAN PARSIAL).

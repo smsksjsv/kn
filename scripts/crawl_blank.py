@@ -1,7 +1,8 @@
+import os
 import asyncio, sys
 from playwright.async_api import async_playwright
 
-URL = "https://code-extend-8.preview.emergentagent.com"
+URL = os.environ["REACT_APP_BACKEND_URL"]
 EXEC = "/pw-browsers/chromium_headless_shell-1208/chrome-linux/headless_shell"
 EMAIL = sys.argv[1] if len(sys.argv) > 1 else "admin@kainnusantara.id"
 

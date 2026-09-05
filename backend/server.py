@@ -155,6 +155,8 @@ for module in [
 app.include_router(color_library.router)
 from routers import customer_feedback  # noqa: E402  — feedback/komplain pelanggan per SO (2026-09)
 app.include_router(customer_feedback.router)
+from routers import saga_locks  # noqa: E402  — T-01 Opsi B: kunci saga menggantung (admin)
+app.include_router(saga_locks.router)
 app.include_router(makloons.router)
 app.include_router(process_recipes.router)
 app.include_router(makloon_orders.router)

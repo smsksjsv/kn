@@ -2,10 +2,11 @@
 R5.4b Backend API Test - Purchase Return Reversal & Write-off Reversal
 Tests all R5.4b endpoints with proper authentication and RBAC
 """
+import os
 import requests
 import sys
 
-BASE_URL = "https://return-reversals.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 # Test credentials
 ADMIN_CREDS = {"email": "admin@kainnusantara.id", "password": "demo12345"}

@@ -2,11 +2,12 @@
 R6.3 Budget Control — Comprehensive Backend API Test
 Tests: Budget CRUD, Budget vs Actual Report, Budget Rules, PO Enforcement, RBAC
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://po-budget-warn.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 # Test credentials from test_credentials.md
 CREDS = {

@@ -1,0 +1,692 @@
+{
+ "results": [
+  {
+   "file": "backend/backend_test.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 4.2,
+   "passed": 33,
+   "total": 35,
+   "errors": [
+    "  \u274c [FAIL] Sales GET /makloons should return 403, got 200",
+    "  \u274c [FAIL] Unauthenticated GET /makloons should return 401/403, got 200",
+    "  HASIL: 33 PASS | 2 FAIL"
+   ],
+   "tail": "lid formula safely (warnings + fallback)\n  \u2139\ufe0f  Test: POST /api/process-recipes/forecast (out-of-range)\n  \u2705 [PASS] POST /process-recipes/forecast rejects out-of-range waste_pct (422)\n\n--- SUPPLIER 360 TESTS ---\n  \u2139\ufe0f  Test: GET /api/suppliers/{id}/360\n  \u2705 [PASS] GET /suppliers/{id}/360 returns complete 360 view (PO count=0)\n\n--- PERMISSION TESTS ---\n  \u2139\ufe0f  Test: Warehouse role permissions\n  \u2705 [PASS] Login warehouse@kainnusantara.id\n  \u2705 [PASS] Warehouse can GET /makloons\n  \u2705 [PASS] Warehouse cannot POST /makloons (403)\n  \u2705 [PASS] Warehouse cannot PATCH /makloons (403)\n  \u2705 [PASS] Warehouse cannot DELETE /makloons (403)\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2139\ufe0f  Test: Sales role permissions\n  \u2705 [PASS] Login sales@kainnusantara.id\n  \u274c [FAIL] Sales GET /makloons should return 403, got 200\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2139\ufe0f  Test: Unauthenticated access\n  \u274c [FAIL] Unauthenticated GET /makloons should return 401/403, got 200\n\n--- CLEANUP TESTS (DELETE) ---\n  \u2139\ufe0f  Test: DELETE /api/process-recipes/{id}\n  \u2705 [PASS] DELETE /process-recipes/{id} soft-deactivated\n  \u2139\ufe0f  Test: DELETE /api/makloons/{id} (soft delete)\n  \u2705 [PASS] DELETE /makloons/{id} soft-deactivated (status=inactive)\n\n======================================================================\n  HASIL: 33 PASS | 2 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - Sales GET /makloons should return 403, got 200\n   - Unauthenticated GET /makloons should return 401/403, got 200\n"
+  },
+  {
+   "file": "backend/backend_test_18.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 0.7,
+   "passed": 1,
+   "total": 2,
+   "errors": [
+    "  \u274c Confirm failed: 409 {\"detail\":\"Verifikasi kelengkapan dulu (alamat \u00b7 syarat bayar \u00b7 isi pesanan) sebelum pesanan ini dikonfirmasi \u2014 buka Meja Admin Sales \u2192 antrean \u201cPerlu diverifikasi\u201d.\"}",
+    "  HASIL: 1 PASS | 1 FAIL",
+    "\u274c FAILED TESTS:"
+   ],
+   "tail": "\n======================================================================\n  BACKEND API TEST \u2014 Sub-fase 1.8 Extended SO Status + Partial Shipment\n======================================================================\n  \u2139\ufe0f  \n=== TEST 1: Login ===\n  \u2705 Login successful\n  \u2139\ufe0f  \n=== TEST 2: Confirm SO Auto-creates Outbound Tasks ===\n  \u274c Confirm failed: 409 {\"detail\":\"Verifikasi kelengkapan dulu (alamat \u00b7 syarat bayar \u00b7 isi pesanan) sebelum pesanan ini dikonfirmasi \u2014 buka Meja Admin Sales \u2192 antrean \u201cPerlu diverifikasi\u201d.\"}\n\n======================================================================\n  HASIL: 1 PASS | 1 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - Confirm failed: 409 {\"detail\":\"Verifikasi kelengkapan dulu (alamat \u00b7 syarat bayar \u00b7 isi pesanan) sebelum pesanan ini dikonfirmasi \u2014 buka Meja Admin Sales \u2192 antrean \u201cPerlu diverifikasi\u201d.\"}\n"
+  },
+  {
+   "file": "backend/backend_test_360_panels.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 1.5,
+   "passed": null,
+   "total": null,
+   "errors": [],
+   "tail": "plier 360 - documents - PASSED\n   Found 0 documents with proper structure\n\ud83d\udd0d \n=== TESTING MAKLOON 360 ===\n\u2705 GET /api/makloons - PASSED\n   Found 8 makloons, using mak_seed_tenun\n\u2705 Makloon 360 - finance object - PASSED\n   Service AP: 881500.0, Bills: 881500.0, Open orders: 1\n\u2705 Makloon 360 - orders - PASSED\n   Found 3 orders\n\u2705 Makloon 360 - service_bills - PASSED\n   Found 2 service bills\n\u2705 Makloon 360 - documents - PASSED\n   Found 5 documents (SPK + bills)\n\u2705 Makloon 360 - mak_seed_tenun has AP > 0 - PASSED\n   AP outstanding: 881500.0\n\ud83d\udd0d \n=== TESTING EMPLOYEE 360 ===\n\u2705 GET /api/hr/employees - PASSED\n   Found 17 employees, using emp_99ffb4fee19d\n\u2705 Employee 360 - profile enrichment - PASSED\n   Dept: Manajemen, Position: Manajer\n\u2705 Employee 360 - attendance_summary - PASSED\n   Present: 0, Late: 0, Leave: 0, Absent: 0\n\u2705 Employee 360 - attendance - PASSED\n   Found 0 attendance records\n\u2705 Employee 360 - leave_requests - PASSED\n   Found 0 leave requests\n\u2705 Employee 360 - payslips - PASSED\n   Found 0 payslips\n\u2705 Employee 360 - kpi_entries - PASSED\n   Found 0 KPI entries\n\u2705 Employee 360 - documents - PASSED\n   Found 0 documents\n\u2705 Employee 360 - can_view_pii - PASSED\n   Admin can view PII: True\n\u2705 Employee 360 - base_salary visible - PASSED\n   Base salary: 5000000.0\n\ud83d\udd0d \n=== TESTING PAYSLIP PDF ===\n\u26a0\ufe0f No payslip ID available, skipping PDF test\n\ud83d\udd0d \n============================================================\n\ud83d\udd0d RESULTS: 24/24 tests passed\n\ud83d\udd0d ============================================================\n\n"
+  },
+  {
+   "file": "backend/backend_test_bi_finance.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 2.0,
+   "passed": null,
+   "total": null,
+   "errors": [],
+   "tail": "ue=15499579.56, expense=40221300.0, net_income=-24721720.44, gross_margin=52.2%, net_margin=-159.5%\n\u2705 BI KPI Structure - PASSED\n\ud83d\udd0d Testing BI Ratios Structure...\n\ud83d\udd0d Ratios: current_ratio=4.97, debt_to_equity=0.11\n\ud83d\udd0d Balance: assets=722041879.56, liabilities=68945100.0, equity=653096779.56\n\u2705 BI Ratios Structure - PASSED\n\ud83d\udd0d Testing BI Entity Comparison...\n\ud83d\udd0d Entity comparison: 2 entities, multi_entity=True\n\ud83d\udd0d   Entity: KSC (ent_ksc) - revenue=15499579.56, net_income=-24721720.44\n\ud83d\udd0d   Entity: Kanda (ent_kanda) - revenue=9758750.0, net_income=-4188392.88\n\u2705 BI Entity Comparison - PASSED\n\ud83d\udd0d Testing BI Single Entity Scope...\n\ud83d\udd0d Single entity scope: KSC - revenue=15499579.56\n\u2705 BI Single Entity Scope - PASSED\n\ud83d\udd0d Testing BI Consistency (Operational Data)...\n\ud83d\udd0d Operational data is consistent across calls\n\u2705 BI Consistency (Operational Data) - PASSED\n\ud83d\udd0d Testing Regression: Income Statement...\n\ud83d\udd0d Income statement: revenue=15499579.56, net_income=-24721720.44\n\u2705 Regression: Income Statement - PASSED\n\ud83d\udd0d Testing Regression: Balance Sheet...\n\ud83d\udd0d Balance sheet: assets=722041879.56, liabilities=68945100.0, equity=653096779.56, balanced=True\n\u2705 Regression: Balance Sheet - PASSED\n\ud83d\udd0d Testing Regression: Trial Balance...\n\ud83d\udd0d Trial balance: debit=1048783579.56, credit=1048783579.56, balanced=True\n\u2705 Regression: Trial Balance - PASSED\n\n================================================================================\nSUMMARY: 10/10 tests passed\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_crm_enforcements.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 3.5,
+   "passed": 15,
+   "total": 16,
+   "errors": [
+    "\u274c FAILED - Create SO with credit blocked (409): Expected CREDIT_BLOCKED code, got MIXED_LOT_CONFIRMATION_REQUIRED"
+   ],
+   "tail": "\n\u274c FAILED - Create SO with credit blocked (409): Expected CREDIT_BLOCKED code, got MIXED_LOT_CONFIRMATION_REQUIRED\n\ud83d\udd0d Testing Collection reminders...\n\ud83d\udd0d Found 6 collection reminders\n\u2705 PASSED - Collection reminders\n\ud83d\udd0d Testing Mark reminder...\n\ud83d\udd0d Reminder marked successfully\n\u2705 PASSED - Mark reminder\n\ud83d\udd0d Testing Add follow-up...\n\ud83d\udd0d Follow-up added successfully\n\u2705 PASSED - Add follow-up\n\ud83d\udd0d Testing Sales KPI...\n\ud83d\udd0d Sales KPI: sales=0, collected=0.0, orders=0\n\u2705 PASSED - Sales KPI\n\ud83d\udd0d Testing Sales commission...\n\ud83d\udd0d Commission: base=0.0, achievement=0%, incentive=0.0\n\u2705 PASSED - Sales commission\n\ud83d\udd0d Testing Commission history (6 periods)...\n\ud83d\udd0d Commission history: 6 periods\n\u2705 PASSED - Commission history (6 periods)\n\ud83d\udd0d Testing Leaderboard (manager)...\n\ud83d\udd0d Leaderboard: 4 entries\n\u2705 PASSED - Leaderboard (manager)\n\ud83d\udd0d Testing Create sales target (admin)...\n\ud83d\udd0d Sales target created successfully\n\u2705 PASSED - Create sales target (admin)\n\ud83d\udd0d Testing Sales target forbidden (sales role)...\n\ud83d\udd0d Sales targets correctly forbidden for sales role\n\u2705 PASSED - Sales target forbidden (sales role)\n\ud83d\udd0d Testing Create sales incentive (admin)...\n\ud83d\udd0d Sales incentive scheme created successfully\n\u2705 PASSED - Create sales incentive (admin)\n\ud83d\udd0d Testing Sales incentive forbidden (sales role)...\n\ud83d\udd0d Sales incentives correctly forbidden for sales role\n\u2705 PASSED - Sales incentive forbidden (sales role)\n\ud83d\udd0d ============================================================\n\ud83d\udd0d Tests completed: 15/16 passed\n\ud83d\udd0d ============================================================\n"
+  },
+  {
+   "file": "backend/backend_test_depth1.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 3.0,
+   "passed": 29,
+   "total": 35,
+   "errors": [
+    "  \u274c [FAIL] Create PO failed: 403 {\"detail\":\"Permission ditolak: purchase_order.create\"}",
+    "  \u274c [FAIL] Approve PRET-00001 failed: 403 {\"detail\":\"Permission ditolak: purchase_return.approve\"}",
+    "  \u274c [FAIL] Submit PRET-00002 failed: 403 {\"detail\":\"Permission ditolak: purchase_return.update\"}"
+   ],
+   "tail": "=\n  \u2139\ufe0f  Testing payment for KSC/PO-00015, outstanding=31468500.0\n  \u274c [FAIL] Pay PO failed: 403 {\"detail\":\"Permission ditolak: purchase_order.update\"}\n  \u2139\ufe0f  \n=== TEST 1C.2: Payables Summary ===\n  \u2705 [PASS] GET payables/summary successful\n  \u2705 [PASS] total_outstanding=437807000.0\n  \u2705 [PASS] Aging bucket '0-30' present: 344257000.0\n  \u2705 [PASS] Aging bucket '31-60' present: 93550000.0\n  \u2705 [PASS] Aging bucket '61-90' present: 0.0\n  \u2705 [PASS] Aging bucket '>90' present: 0.0\n  \u2705 [PASS] by_supplier has 4 entries\n  \u2705 [PASS] purchase_orders has 10 entries\n  \u274c [FAIL] PO-00002 (fully paid) should not be in payables list\n  \u2139\ufe0f  \n=== TEST 1C.3: Permissions ===\n  \u2705 [PASS] Sales can view payables (GET)\n  \u2705 [PASS] Sales cannot pay PO (403)\n  \u2705 [PASS] Warehouse can view purchase returns\n  \u2705 [PASS] Warehouse cannot approve return (403)\n\n======================================================================\n  HASIL: 29 PASS | 6 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - Create PO failed: 403 {\"detail\":\"Permission ditolak: purchase_order.create\"}\n   - Approve PRET-00001 failed: 403 {\"detail\":\"Permission ditolak: purchase_return.approve\"}\n   - Submit PRET-00002 failed: 403 {\"detail\":\"Permission ditolak: purchase_return.update\"}\n   - Reject return failed: 403 {\"detail\":\"Permission ditolak: purchase_return.reject\"}\n   - Pay PO failed: 403 {\"detail\":\"Permission ditolak: purchase_order.update\"}\n   - PO-00002 (fully paid) should not be in payables list\n"
+  },
+  {
+   "file": "backend/backend_test_depth3_enhancements.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 2.4,
+   "passed": 12,
+   "total": 14,
+   "errors": [
+    "\u274c FAIL - Expected 200, got 400",
+    "\u274c FAIL - Expected 200, got 400",
+    "\u274c Failed Tests:"
+   ],
+   "tail": "ting_approval and price_deviation.flagged=true\n\u274c FAIL - Expected 200, got 400\n   Response: {\"detail\":\"Item BTK-MEGA-003: Grade yang diharapkan wajib dipilih untuk setiap item (tidak ada nilai default) \u2014 pilihan: A, A1, A2, B, BS.\"}\n\n\ud83d\udd0d Get suppliers\n\u2705 PASS - Status: 200\n\n\ud83d\udd0d Get supplier price-list\n\u2705 PASS - Status: 200\n   \u2713 Using exact price-list price: 204250.0\n\n\ud83d\udd0d Get warehouses\n\u2705 PASS - Status: 200\n\n\ud83d\udd0d POST /api/purchase-orders (price at price-list)\n   Should create PO without price_deviation flag (price at price-list)\n\u274c FAIL - Expected 200, got 400\n   Response: {\"detail\":\"Item BTK-MEGA-003: Grade yang diharapkan wajib dipilih untuk setiap item (tidak ada nilai default) \u2014 pilihan: A, A1, A2, B, BS.\"}\n\n================================================================================\n\ud83d\udcca DEPTH #3 ENHANCEMENTS TEST SUMMARY\n================================================================================\nTotal tests run: 14\nTests passed: 12\nTests failed: 2\nSuccess rate: 85.7%\n\n\u274c Failed Tests:\n  - POST /api/purchase-orders (price 25% above price-list)\n    Response: {\"detail\":\"Item BTK-MEGA-003: Grade yang diharapkan wajib dipilih untuk setiap item (tidak ada nilai default) \u2014 pilihan: A, A1, A2, B, BS.\"}\n  - POST /api/purchase-orders (price at price-list)\n    Response: {\"detail\":\"Item BTK-MEGA-003: Grade yang diharapkan wajib dipilih untuk setiap item (tidak ada nilai default) \u2014 pilihan: A, A1, A2, B, BS.\"}\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_dyelot.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 2.7,
+   "passed": 14,
+   "total": 15,
+   "errors": [
+    "  \u274c [FAIL] QC decision: roll with correct grade + defects not found",
+    "  SUMMARY: 14 PASS | 1 FAIL",
+    "\u274c FAILED:"
+   ],
+   "tail": "===============================\n\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2705 [PASS] Setup references: entity=ent_ksc, warehouse=wh_bandu\n  \u2139\ufe0f  TEST 5: Regression sweep of key GET endpoints\n  \u2705 [PASS] GET /dashboard \u2192 200\n  \u2705 [PASS] GET /products \u2192 200\n  \u2705 [PASS] GET /customers \u2192 200\n  \u2705 [PASS] GET /inventory/balances \u2192 200\n  \u2705 [PASS] GET /inventory/rolls \u2192 200\n  \u2705 [PASS] GET /sales-orders \u2192 200\n  \u2705 [PASS] GET /purchase-orders \u2192 200\n  \u2705 [PASS] GET /inbound/qc/queue \u2192 200\n  \u2139\ufe0f  TEST 1a: GR complete without body (backward compatible)\n  \u2139\ufe0f    No inbound tasks in qc_check status - skipping test\n  \u2139\ufe0f  TEST 1b: GR complete with dye_lot + grade\n  \u2139\ufe0f    No inbound tasks in qc_check status - skipping test\n  \u2139\ufe0f  TEST 1c: GR complete with rolls[] (multi-roll breakdown)\n  \u2139\ufe0f    No inbound tasks in qc_check status - skipping test\n  \u2139\ufe0f  TEST 2: QC decision with accept_grade + defects[]\n  \u274c [FAIL] QC decision: roll with correct grade + defects not found\n  \u2139\ufe0f  TEST 3 & 4: Customer enforce_single_dye_lot + preview-lots\n  \u2705 [PASS] Customer created with enforce_single_dye_lot=True\n  \u2705 [PASS] Customer lot_policy=strict_single persisted\n  \u2705 [PASS] Customer PATCH lot_policy works\n  \u2705 [PASS] preview-lots: dye_lot_strict=True for enforce_single_dye_lot customer\n\n======================================================================\n  SUMMARY: 14 PASS | 1 FAIL\n======================================================================\n\n\u274c FAILED:\n  - QC decision: roll with correct grade + defects not found\n"
+  },
+  {
+   "file": "backend/backend_test_e0_isolation.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 2.9,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "\u274c GAGAL - Status OK tapi check gagal",
+    "\u274c GAGAL - Expected 403, got 422",
+    "\u274c Gagal: 2"
+   ],
+   "tail": "============================================\n\n\ud83d\udd0d Test #7: L21.1 - Sales3 tidak boleh pratinjau stok KSC\n   User: sales3@kainnusantara.id, Method: POST, Endpoint: /api/sales-orders/preview-allocation\n\u274c GAGAL - Expected 403, got 422\n   Response: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"items\",0,\"quantity\"],\"msg\":\"Field required\",\"input\":{\"product_id\":\"BTK-MEGA-001\",\"qty\":10},\"url\":\"https://errors.pydantic.dev/2.13/v/missing\"}]}\n\n================================================================================\nFASE 6: ISOLASI UMUM - SALES3 TIDAK LIHAT DATA KSC\n================================================================================\n\n\ud83d\udd0d Test #8: ISOLASI.1 - Sales3 hanya lihat pesanan Kanda\n   User: sales3@kainnusantara.id, Method: GET, Endpoint: /api/sales-orders\n   Sales3 melihat 1 pesanan\n\u2705 LULUS - Status: 200, Check: OK\n\n\ud83d\udd0d Test #9: ISOLASI.2 - Sales3 tidak lihat notifikasi KSC\n   User: sales3@kainnusantara.id, Method: GET, Endpoint: /api/notifications\n   Sales3 melihat 0 notifikasi\n\u2705 LULUS - Status: 200, Check: OK\n\n================================================================================\nRINGKASAN HASIL TES\n================================================================================\nTotal tes: 9\n\u2705 Lulus: 7\n\u274c Gagal: 2\n\n\u274c DAFTAR KEGAGALAN:\n   1. L10.1 - Settings untuk Kanda (non-PKP): Check function failed\n   2. L21.1 - Sales3 tidak boleh pratinjau stok KSC: Expected 403, got 422\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_e4.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 4.4,
+   "passed": 45,
+   "total": 45,
+   "errors": [
+    "  HASIL: 45 PASS | 0 FAIL"
+   ],
+   "tail": "mns + source\n  \u2139\ufe0f  Test: E4.7.10-12 Price lifecycle\n  \u2705 [PASS] Test product starts with global price: 165000.0\n  \u2705 [PASS] Entity price set successfully\n  \u2705 [PASS] Effective price uses entity price immediately\n  \u2705 [PASS] Second price set successfully\n  \u2705 [PASS] First price auto-closed when second price set (history preserved)\n  \u2705 [PASS] Latest price wins\n  \u2705 [PASS] Scheduled price set successfully\n  \u2705 [PASS] Scheduled price does not affect current price\n  \u2705 [PASS] Revert to global succeeds\n  \u2705 [PASS] Product reverted to global price\n  \u2705 [PASS] Price history preserved (3 records)\n  \u2139\ufe0f  Test: E4.7.13 Price chain in customer quotes\n  \u2705 [PASS] Kanda customer quote uses entity price (172500.0)\n  \u2705 [PASS] KSC customer quote uses global price for product without override\n  \u2705 [PASS] Quote includes price breakdown (global + entity)\n  \u2139\ufe0f  Test: E4.7.14 CSV export/import\n  \u2705 [PASS] CSV export includes entity prices\n  \u2705 [PASS] CSV import applied 1 row (skipped rows without price)\n  \u2705 [PASS] Indonesian number format '171.500' parsed correctly as 171500\n  \u2705 [PASS] Row without price was skipped (did not clear existing prices)\n  \u2705 [PASS] Unknown SKU reported in errors\n\n--- CLEANUP ---\n  \u2139\ufe0f  Cleaning up test data...\n  \u2705 [PASS] Cleanup: {'warehouses': 1, 'entity_prices': 4, 'cycle_count_sessions': 1}\n\n======================================================================\n  HASIL: 45 PASS | 0 FAIL\n======================================================================\n\n\u2705 SEMUA TEST BACKEND LULUS\n"
+  },
+  {
+   "file": "backend/backend_test_epic7b_bank.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 1.2,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u274c [FAIL] GET /api/bank-accounts returned 403, expected 200",
+    "\u274c CRITICAL: List accounts failed. Cannot proceed.",
+    "RESULTS: \u2705 PASS 3 | \u274c FAIL 1"
+   ],
+   "tail": "============================================================\nEPIC7-B: Kas & Bank Module - Backend API Tests\n============================================================\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2705 [PASS] Login manager@kainnusantara.id\n  \u2705 [PASS] Login sales@kainnusantara.id\n\n=== TEST: List Bank Accounts (Admin) ===\n  \u274c [FAIL] GET /api/bank-accounts returned 403, expected 200\n\n\u274c CRITICAL: List accounts failed. Cannot proceed.\n\n============================================================\nRESULTS: \u2705 PASS 3 | \u274c FAIL 1\n============================================================\n\n\u274c FAILED TESTS:\n  - GET /api/bank-accounts returned 403, expected 200\n"
+  },
+  {
+   "file": "backend/backend_test_equity_changes.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 0.8,
+   "passed": 17,
+   "total": 17,
+   "errors": [
+    "  HASIL: 17 PASS | 0 FAIL"
+   ],
+   "tail": "SS] GET /api/finance/equity-changes returns 200\n  \u2705 [PASS] Response contains all required fields: ['period', 'components', 'begin_total', 'movement_total', 'end_total', 'net_income']\n  \u2705 [PASS] Period correct: 2026-01-01 to 2026-12-31\n  \u2705 [PASS] Found 3 equity components\n  \u2705 [PASS] All components have required fields (code, name, begin, movement, end)\n  \u2139\ufe0f  \n=== TEST 2: Verify Calculations ===\n  \u2705 [PASS] movement_total (653096779.56) == end_total - begin_total (653096779.56)\n  \u2705 [PASS] All 3 components have correct movement calculations\n  \u2139\ufe0f  \n=== TEST 3: Verify P&L Component ===\n  \u2705 [PASS] Found __pl__ component: Laba (Rugi) Periode Berjalan\n  \u2705 [PASS] __pl__ component name is appropriate: 'Laba (Rugi) Periode Berjalan'\n  \u2139\ufe0f  \n=== TEST 4: Reconciliation with Balance Sheet ===\n  \u2705 [PASS] GET /api/finance/balance-sheet returns 200\n  \u2705 [PASS] RECONCILIATION PASSED: Balance sheet equity_total (653096779.56) == equity-changes end_total (653096779.56)\n  \u2139\ufe0f  \n=== TEST 5: CSV Export ===\n  \u2705 [PASS] GET /api/finance/equity-changes/export.csv returns 200\n  \u2705 [PASS] Content-Type is CSV: text/csv; charset=utf-8\n  \u2705 [PASS] CSV content starts with 'Laporan Perubahan Ekuitas'\n  \u2705 [PASS] CSV has 8 lines\n  \u2139\ufe0f  \n=== TEST 6: Auth Protection ===\n  \u2705 [PASS] Unauthenticated request returns 401 (correct)\n\n======================================================================\n  HASIL: 17 PASS | 0 FAIL\n======================================================================\n\n\u2705 SEMUA TEST BACKEND LULUS\n"
+  },
+  {
+   "file": "backend/backend_test_f0a_entity_context.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 5.8,
+   "passed": 40,
+   "total": 42,
+   "errors": [
+    "  \u274c FAIL: sales with X-Entity-Id=ent_kanda is IGNORED, active stays ent_ksc",
+    "  \u274c FAIL: Valid login returns token"
+   ],
+   "tail": ": /entities includes ent_kanda\n      Entity IDs: ['ent_ksc', 'ent_kanda']\n  \u2705 PASS: ent_ksc has enriched field 'currency'\n      Value: IDR\n  \u2705 PASS: ent_ksc has enriched field 'coa_template'\n      Value: id_standard\n  \u2705 PASS: ent_ksc has enriched field 'incentive_payer'\n      Value: sales_entity\n  \u2705 PASS: ent_ksc has enriched field 'numbering_scheme'\n      Value: per_entity_prefix\n  \u2705 PASS: ent_ksc incentive_payer = sales_entity (Model 1)\n      Got: sales_entity\n  \u2705 PASS: entity_context.entities[ent_ksc].is_pkp = True\n      Got: True\n  \u2705 PASS: entity_context.entities[ent_kanda].is_pkp = False\n      Got: False\n\n======================================================================\nTEST 7: Auth Regression Tests\n======================================================================\n  \u274c FAIL: Valid login returns token\n      Token prefix: zyd8E\n  \u2705 PASS: Invalid password returns 401\n      Got status: 401\n  \u2705 PASS: Logout returns 200\n      Got status: 200\n\n======================================================================\nTEST 8: Protected Endpoint Regression\n======================================================================\n  \u2705 PASS: Protected endpoint /home/admin returns 200 for admin\n      Got status: 200\n  \u2705 PASS: Protected endpoint /sales-orders returns 200 for admin\n      Got status: 200\n\n======================================================================\nTEST SUMMARY: 40/42 passed, 2/42 failed\n======================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_f3_mto_rma.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 1.7,
+   "passed": 6,
+   "total": 13,
+   "errors": [
+    "  \u274c [FAIL] Approve special order failed: 403 {\"detail\":\"Permission ditolak: order.approve\"}",
+    "  \u274c [FAIL] Create SKU failed: 403 {\"detail\":\"Permission ditolak: order.approve\"}",
+    "  \u274c [FAIL] Convert to SO failed: 400 {\"detail\":\"Konversi hanya untuk special order yang sudah disetujui (confirmed/in_production/ready).\"}"
+   ],
+   "tail": "otent)\n  \u274c [FAIL] Create SKU failed: 403 {\"detail\":\"Permission ditolak: order.approve\"}\n  \u2139\ufe0f  Test 4: RBAC - sales role 403 on create-sku\n  \u2705 [PASS] Sales role correctly denied (403) on create-sku endpoint\n  \u2139\ufe0f  Test 5: Convert special order to Sales Order\n  \u274c [FAIL] Convert to SO failed: 400 {\"detail\":\"Konversi hanya untuk special order yang sudah disetujui (confirmed/in_production/ready).\"}\n  \u2139\ufe0f  Test 6: GL auto-posting for invoices\n  \u274c [FAIL] Get SO failed: 404\n  \u2139\ufe0f  Test 7: Create sales return with komplain type\n  \u274c [FAIL] Get SO failed: 404\n  \u2139\ufe0f  Test 8: Create sales return with garansi type\n  \u274c [FAIL] Get SO failed: 404\n  \u2139\ufe0f  Test 9: Approve sales return (generates Credit Note)\n  \u2139\ufe0f  Skipping approve return test (no sales return created)\n  \u2139\ufe0f  Test 10: Entity scoping validation\n  \u274c [FAIL] Get special orders failed: 403\n\n======================================================================\nTEST SUMMARY\n======================================================================\n\u2705 PASSED: 6\n\u274c FAILED: 7\n\nFailed tests:\n  \u2022 Approve special order failed: 403 {\"detail\":\"Permission ditolak: order.approve\"}\n  \u2022 Create SKU failed: 403 {\"detail\":\"Permission ditolak: order.approve\"}\n  \u2022 Convert to SO failed: 400 {\"detail\":\"Konversi hanya untuk special order yang sudah disetujui (confirmed/in_production/ready).\"}\n  \u2022 Get SO failed: 404\n  \u2022 Get SO failed: 404\n  \u2022 Get SO failed: 404\n  \u2022 Get special orders failed: 403\n\n======================================================================\n\n"
+  },
+  {
+   "file": "backend/backend_test_f6_approval_retirement.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 5.4,
+   "passed": 46,
+   "total": 47,
+   "errors": [
+    "\u274c GET /api/approvals/backlog returns 200 for finance",
+    "\u274c Failed Tests:"
+   ],
+   "tail": "First doc keys: ['key', 'queue_label', 'view', 'id', 'number', 'title', 'entity_id', 'since', 'days_waiting']\n\u2705 Oldest documents have non-empty number\n   number: PRET-00001\n\u2705 Oldest documents have valid days_waiting\n   days_waiting: 6\n\u2705 Oldest documents include new queue types\n   Found: ['landed_cost', 'transfer']\n\n\ud83d\udd0d Testing Single Source of Truth (Backlog == Home KPI)...\n\u2705 admin: home.approvals_pending == backlog.total\n   home.approvals_pending=31, backlog.total=31\n\u2705 admin: home.approvals.total == home.approvals_pending\n   home.approvals.total=31, home.approvals_pending=31\n\u2705 manager: home.approvals_pending == backlog.total\n   home.approvals_pending=31, backlog.total=31\n\u2705 manager: home.approvals.total == home.approvals_pending\n   home.approvals.total=31, home.approvals_pending=31\n\n\ud83d\udd0d Testing Entity Scoping...\n\u2705 Entity scoped total <= combined total\n   ent_ksc total=29, all total=31\n\n\ud83d\udd0d Testing Approval Rules (Not Retired)...\n\u2705 GET /api/approval-rules returns 200\n   Expected 200, got 200\n\u2705 GET /api/approvals/queue returns 200\n   Expected 200, got 200\n\n\ud83d\udd0d Testing No Import Breakage...\n\u2705 GET /dashboard returns 200 for manager\n   Expected 200, got 200\n\u2705 GET /notifications returns 200 for manager\n   Expected 200, got 200\n\n======================================================================\n\ud83d\udcca Test Summary: 46/47 passed\n======================================================================\n\n\u274c Failed Tests:\n  - GET /api/approvals/backlog returns 200 for finance: Expected 200, got 403\n"
+  },
+  {
+   "file": "backend/backend_test_fase4.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 3.6,
+   "passed": 19,
+   "total": 21,
+   "errors": [
+    "\u274c   FAILED - Expected 200, got 409",
+    "\u274c   Response: {'detail': 'Verifikasi kelengkapan dulu (alamat \u00b7 syarat bayar \u00b7 isi pesanan) sebelum pesanan ini dikonfirmasi \u2014 buka Meja Admin Sales \u2192 antrean \u201cPerlu diverifikasi\u201d.'}",
+    "\u274c   FAILED - Expected 409, got 200"
+   ],
+   "tail": "id': 'pnl_a0025a949d64', 'doc_number': 'KANDA/DN-DENDA-00001', 'note': 'denda keterlambatan Uang Muka (DP) 20%', 'at': '2026-09-05T14:20:58.909428+00:00'}, {'rel': 'child', 'doc_type': 'penalty', 'doc_id': 'pnl_56eccad438c2', 'doc_number': 'KANDA/DN-DENDA-00002', 'note': 'denda keterlambatan Cicilan 1/3', 'at': '2026-09-05T14:20:58.916264+00:00'}], 'line_codes': ['printing'], 'approved_by': 'Budi Santoso'}\n\n======================================================================\nPHASE 8: NO 5XX REGRESSIONS (SO Lifecycle)\n======================================================================\n\u2139\ufe0f Testing SO lifecycle endpoints for 5xx errors...\n\u2139\ufe0f Test #17: GET sales-orders (no 5xx)\n\u2705   PASSED (status: 200)\n\u2139\ufe0f Test #18: GET sales-orders/{id} (no 5xx)\n\u2705   PASSED (status: 200)\n\u2139\ufe0f Test #19: GET sales-orders/stats/summary (no 5xx)\n\u2705   PASSED (status: 200)\n\n======================================================================\nTEST SUMMARY - FASE 4\n======================================================================\nTotal Tests: 19\n\u2705 Passed: 19\n\u274c Failed: 2\nSuccess Rate: 100.0%\n\n======================================================================\nFAILURES:\n======================================================================\n1. POST sales-orders/{id}/confirm (verify stage=Confirmed): Expected 200, got 409\n2. POST sales-orders/{id}/approve on waiting_stock (should 409 with guiding message): Expected 409, got 200\n======================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_fase_b.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 1.7,
+   "passed": 9,
+   "total": 9,
+   "errors": [],
+   "tail": " window: 90 days\n  Config - Safety days: 7 days\n  \nSample reorder suggestions:\n    - SKU: ENK-BALI-003 | Product: Endek Bali Rangrang\n      Available: 110.0 | On Order: 0.0 | Projected: 110.0\n      ROP: 250.0 | Suggested Qty: 500.0\n      Avg Daily Sold: 0.0 | Suggested ROP: 0.0\n      Lead Time: 12 days | Supplier: Bali Weave Studio\n    - SKU: ENK-BALI-002 | Product: Endek Bali Rangrang\n      Available: 150.0 | On Order: 0.0 | Projected: 150.0\n      ROP: 250.0 | Suggested Qty: 500.0\n      Avg Daily Sold: 0.0 | Suggested ROP: 0.0\n      Lead Time: 12 days | Supplier: Bali Weave Studio\n    - SKU: KMB-BTL-001 | Product: Kain Kombinasi Batik-Lurik (per Yard)\n      Available: 0.0 | On Order: 0.0 | Projected: 0.0\n      ROP: 100.0 | Suggested Qty: 200.0\n      Avg Daily Sold: 0.0 | Suggested ROP: 0.0\n      Lead Time: 0 days | Supplier: Produksi In-House\n\n================================================================================\nPHASE 5: SSOT REGRESSION CHECK\n================================================================================\n  \u2705 Putaway API only updates roll.bin_id (verified in code)\n  \u2705 Putaway does NOT directly modify inventory_balances\n  \u2705 inventory_balances is a derived projection (SSOT maintained)\n\n================================================================================\nTEST SUMMARY\n================================================================================\nTotal tests run: 9\nTests passed: 9\nTests failed: 0\nSuccess rate: 100.0%\n\n\ud83c\udf89 ALL TESTS PASSED!\n"
+  },
+  {
+   "file": "backend/backend_test_fase_b_uom.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 3.0,
+   "passed": 41,
+   "total": 41,
+   "errors": [
+    "  RESULTS: 41 PASS \u00b7 0 FAIL"
+   ],
+   "tail": " Settings...\n  \u2705 [PASS] Settings retrieved (warn=2.0%, block=5.0%)\n  \u2705 [PASS] Invalid settings rejected (warn > block)\n  \u2705 [PASS] Settings updated with decimal comma (1,5 \u2192 1.5)\n  \u2705 [PASS] Settings restored to default\n  \u2139\ufe0f  Testing UOM Conversion...\n  \u2705 [PASS] Conversion accepts decimal comma (10,5 \u2192 10.5)\n  \u2705 [PASS] Yard to meter conversion correct (10.5 yd \u2248 9.6 m)\n  \u2705 [PASS] Conversion trail complete (D-07)\n  \u2705 [PASS] Unknown unit rejected with Indonesian message\n  \u2139\ufe0f  Testing Variance Check...\n  \u2705 [PASS] Variance 1% \u2192 OK level\n  \u2705 [PASS] Variance 2.5% \u2192 warn level\n  \u2705 [PASS] Variance 6% \u2192 block level\n  \u2705 [PASS] Block message explains action in Indonesian\n  \u2139\ufe0f  Testing Usage Tracking...\n  \u2705 [PASS] Usage tracking returns document trails (5 found)\n  \u2705 [PASS] Usage trail contains required fields\n\n[MANAGER TESTS - RBAC]\n  \u2705 [PASS] Login manager\n  \u2139\ufe0f  Testing RBAC for manager...\n  \u2705 [PASS] manager cannot create rules (403)\n  \u2705 [PASS] manager cannot update settings (403)\n  \u2705 [PASS] manager can read rules (200)\n  \u2705 [PASS] manager can read catalog (200)\n\n[SALES TESTS - RBAC]\n  \u2705 [PASS] Login sales\n  \u2139\ufe0f  Testing RBAC for sales...\n  \u2705 [PASS] sales cannot create rules (403)\n  \u2705 [PASS] sales cannot update settings (403)\n  \u2705 [PASS] sales can read rules (200)\n  \u2705 [PASS] sales can read catalog (200)\n\n================================================================================\n  RESULTS: 41 PASS \u00b7 0 FAIL\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_fase_c_lot.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 3.5,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u001b[92mPASS 46\u001b[0m  |  \u001b[91mFAIL 0\u001b[0m"
+   ],
+   "tail": "alogy complete: 3 nodes, 2 edges\n  \u2705 [PASS] Stage chain present: finished\n\n\u001b[96m\u001b[1mTEST 12 \u2014 GET /api/lots/{id}/recall (recall tracing)\u001b[0m\n  \u2705 [PASS] Recall complete: 1 rolls, 0 orders, 0 customers\n\n\u001b[96m\u001b[1mTEST 13 \u2014 POST /api/lots/{id}/label (label/QR generation)\u001b[0m\n  \u2705 [PASS] Invalid label format rejected\n  \u2705 [PASS] Invalid qty (>50) rejected\n  \u2705 [PASS] Label generated: format=zpl, qty=2\n  \u2705 [PASS] Lot number included in label content\n\n\u001b[96m\u001b[1mTEST 14 \u2014 GET /api/lots/unassigned-rolls\u001b[0m\n  \u2705 [PASS] Unassigned rolls endpoint works: 0 rolls without lot\n  \u2705 [PASS] All rolls have lot_id (clean data)\n\n\u001b[96m\u001b[1mTEST 15 \u2014 GET /api/rolls/{roll_id}/lot\u001b[0m\n  \u2705 [PASS] Roll-lot relationship endpoint works\n\n\u001b[96m\u001b[1mTEST 16 \u2014 GET /api/enums (lot_source, lot_status)\u001b[0m\n  \u2705 [PASS] lot_source enum active with 11 values\n  \u2705 [PASS] lot_status enum active with 5 values\n  \u2705 [PASS] Decisions D-10, D-26, D-27 documented in registry\n\n\u001b[96m\u001b[1mTEST 17 \u2014 RBAC: Sales can view but not modify settings\u001b[0m\n  \u2705 [PASS] Sales can VIEW lots (traceability transparent)\n  \u2705 [PASS] Sales CANNOT modify lot settings (403 Forbidden)\n\n\u001b[96m\u001b[1mTEST 18 \u2014 REGRESSION: Existing endpoints still work\u001b[0m\n  \u2705 [PASS] inventory/rolls still works\n  \u2705 [PASS] inventory/balances still works\n  \u2705 [PASS] uom-conversions/rules still works\n\n======================================================================\n  \u001b[92mPASS 46\u001b[0m  |  \u001b[91mFAIL 0\u001b[0m\n  \u001b[92m\u001b[1mALL TESTS PASSED \u2014 Backend Fase C Lot APIs working correctly.\u001b[0m\n"
+  },
+  {
+   "file": "backend/backend_test_fase_f_closure.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 55.5,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "RESULTS: \u2705 56 PASSED / \u274c 0 FAILED (Total: 56)"
+   ],
+   "tail": "Indonesian label\n\n=== Deterministic Document Numbers ===\n  \u2705 [PASS] Supplier contracts have deterministic numbers\n  \u2705 [PASS] md_specs have deterministic numbers (KSC/SPEC-)\n  \u2705 [PASS] md_samples have deterministic numbers (KSC/SMP-)\n\n=== Major Endpoints Regression ===\n  \u2705 [PASS] GET /sales-orders returns 200 with data\n  \u2705 [PASS] GET /purchase-orders returns 200 with data\n  \u2705 [PASS] GET /inventory/balances returns 200 with data\n  \u2705 [PASS] GET /inventory/rolls returns 200 with data\n  \u2705 [PASS] GET /inventory/movements returns 200 with data\n  \u2705 [PASS] GET /wms/tasks returns 200 with data\n  \u2705 [PASS] GET /transfers returns 200 with data\n  \u2705 [PASS] GET /cycle-count/sessions returns 200 with data\n  \u2705 [PASS] GET /uom-conversions/catalog returns 200 with data\n  \u2705 [PASS] GET /uom-conversions/rules returns 200 with data\n  \u2705 [PASS] GET /uom-conversions/usage returns 200 with data\n  \u2705 [PASS] GET /purchase-returns returns 200 with data\n  \u2705 [PASS] GET /products returns 200 with data\n  \u2705 [PASS] GET /onboarding returns 200 with data\n  \u2705 [PASS] GET /rnd/meta returns 200 with data\n  \u2705 [PASS] GET /rnd/specs returns 200 with data\n  \u2705 [PASS] GET /rnd/samples returns 200 with data\n  \u2705 [PASS] GET /supplier-contracts returns 200 with data\n  \u2705 [PASS] GET /documents/ref-types returns 200 with data\n\n================================================================================\nRESULTS: \u2705 56 PASSED / \u274c 0 FAILED (Total: 56)\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_fase_f_endpoints.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 2.2,
+   "passed": 16,
+   "total": 19,
+   "errors": [
+    "  \u001b[91m\u2717 Error message mentions design \u2014 Warna target tidak ada di Pustaka Warna. Pilih dari pustaka (Produk & Harga \u2192 Pustaka Warna) \u2014 warna\u001b[0m"
+   ],
+   "tail": "OST /rnd/samples returns 200/201\u001b[0m\n\n\u001b[96m\u001b[1m==============================================================================\n6. PROOFING REQUIRES DESIGN (US9)\n==============================================================================\u001b[0m\n  \u001b[92m\u2713\u001b[0m Proofing without design_id returns 4xx \u2014 Got 400\n  \u001b[91m\u2717 Error message mentions design \u2014 Warna target tidak ada di Pustaka Warna. Pilih dari pustaka (Produk & Harga \u2192 Pustaka Warna) \u2014 warna\u001b[0m\n\n\u001b[96m\u001b[1m==============================================================================\n7. RBAC TESTS\n==============================================================================\u001b[0m\n\n\u001b[96m\ud83d\udd10 Logging in as warehouse...\u001b[0m\n\u001b[92m\u2713 Logged in as warehouse\u001b[0m\n  \u001b[92m\u2713\u001b[0m Warehouse cannot create spec (403) \u2014 Got 403\n  \u001b[92m\u2713\u001b[0m Warehouse can view specs (200) \u2014 Got 200\n\n\u001b[96m\u001b[1m==============================================================================\n8. REPORTS\n==============================================================================\u001b[0m\n  \u001b[92m\u2713\u001b[0m GET /rnd/reports/performer returns 200\n  \u001b[92m\u2713\u001b[0m GET /rnd/lifecycle-board returns 200\n  \u001b[92m\u2713\u001b[0m Lifecycle board has enforcement\n  \u001b[92m\u2713\u001b[0m Lifecycle board has counts\n  \u001b[92m\u2713\u001b[0m Lifecycle board has not_orderable\n\n\u001b[1m\u001b[96m==============================================================================\nTEST SUMMARY\n==============================================================================\u001b[0m\n\nTotal Tests: 19\n\u001b[92mPassed: 16\u001b[0m\n\u001b[91mFailed: 3\u001b[0m\nSuccess Rate: 84.2%\n"
+  },
+  {
+   "file": "backend/backend_test_fase_f_final.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 33.3,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u274c [FAIL] sales PT-A requesting entity_id=PT-B \u2192 HTTP ERROR (expected 403)",
+    "  \u274c [FAIL] sales PT-A \u2192 HTTP ERROR",
+    "  \u274c [FAIL] sales PT-A requesting entity_id=PT-B \u2192 HTTP ERROR (expected 403)"
+   ],
+   "tail": "ian words: ['Cek', 'Buat', 'Tinjau', 'gudang']\n  \u2139\ufe0f    admin has 6 onboarding tasks\n\n\u2500\u2500 Testing sales onboarding \u2500\u2500\n  \u2705 [PASS] sales onboarding \u2192 HTTP 200\n  \u2705 [PASS] sales onboarding has NO forbidden English words\n  \u2705 [PASS] sales onboarding contains Indonesian words: ['Buat', 'Kirim', 'pesanan']\n  \u2139\ufe0f    sales has 5 onboarding tasks\n\n\u2500\u2500 Testing warehouse onboarding \u2500\u2500\n  \u2705 [PASS] warehouse onboarding \u2192 HTTP 200\n  \u274c [FAIL] warehouse onboarding contains English words: ['Scan']\n  \u2705 [PASS] warehouse onboarding contains Indonesian words: ['Cek', 'Proses', 'Buat', 'Lanjutkan', 'Kirim']\n  \u2139\ufe0f    warehouse has 5 onboarding tasks\n\n\u2500\u2500 Testing manager onboarding \u2500\u2500\n  \u2705 [PASS] manager onboarding \u2192 HTTP 200\n  \u2705 [PASS] manager onboarding has NO forbidden English words\n  \u2705 [PASS] manager onboarding contains Indonesian words: ['Cek', 'Buat', 'Tinjau', 'Jalankan', 'gudang']\n  \u2139\ufe0f    manager has 5 onboarding tasks\n\n======================================================================\n  RESULTS: \u2705 36 PASS \u00b7 \u274c 9 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n  - sales PT-A requesting entity_id=PT-B \u2192 HTTP ERROR (expected 403)\n  - sales PT-A \u2192 HTTP ERROR\n  - sales PT-A requesting entity_id=PT-B \u2192 HTTP ERROR (expected 403)\n  - Inbound Tasks \u2192 Request failed\n  - Outbound Tasks \u2192 Request failed\n  - Transfers \u2192 Request failed\n  - Cycle Count Sessions \u2192 Request failed\n  - R&D Designs \u2192 Request failed\n  - warehouse onboarding contains English words: ['Scan']\n"
+  },
+  {
+   "file": "backend/backend_test_fase_f_write_flows.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 3.3,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "\u274c Issue material \u2192 stock decreases"
+   ],
+   "tail": "\n======================================================================\nFASE F \u2014 Backend Write Flows Test (Iteration 180)\n======================================================================\n\n\u2705 Login as admin@kainnusantara.id\n\n--- P1 US1+2+8: Spec \u2192 Submit \u2192 Approve \u2192 Release ---\n\u2705 Create specification\n\u2705 Submit specification\n\u2705 Login as manager@kainnusantara.id\n\u2705 Approve specification \u2192 product born\n\u2705 Product not in orderable list\n\u2705 Release product to production\n\n--- P1 US9: Proofing without/with design ---\n\u2705 Login as admin@kainnusantara.id\n\u2705 Proofing without design REJECTED\n\u2705 Create proofing with design\n\n--- P1 US5+6: Sample \u2192 Send \u2192 Submit round \u2192 Assess ---\n\u2705 Send sample to suppliers\n\u2705 Submit round without attachment REJECTED\n\n--- P1 US10+11: Issue material \u2192 stock decreases ---\n\u274c Issue material \u2192 stock decreases\n   Details: Roll RL-00056: 800.0 \u2192 50.0 (expected -3)\n\n======================================================================\nRESULTS: 12/13 tests passed\n======================================================================\n\n"
+  },
+  {
+   "file": "backend/backend_test_finance_analytics.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 1.6,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "[14:24:50] \u274c FAILED: Profitability (WAC)",
+    "[14:24:50]    Error: cost_basis should be WAC, got WAC (incl. landed cost)",
+    "[14:24:50] \u274c FAILED: Budget Create"
+   ],
+   "tail": "  Error: Expected 200, got 400: {\"detail\":\"Anggaran untuk kombinasi entitas/tahun/bulan/kunci ini sudah ada \u2014 ubah saja.\"}\n[14:24:50] \n============================================================\n[14:24:50] TEST 8: Budget List\n[14:24:50] ============================================================\n[14:24:50] \u274c FAILED: Budget List\n[14:24:50]    Error: Created budget None not found in list\n[14:24:50] \n============================================================\n[14:24:50] TEST 9: Budget vs Actual\n[14:24:50] ============================================================\n[14:24:50] Budget vs actual response keys: ['year', 'rows', 'by_dimension', 'unbudgeted_commitments', 'alerts', 'rules', 'totals', 'generated_at']\n[14:24:50] \u274c FAILED: Budget vs Actual\n[14:24:50]    Error: Missing key in row: account_name\n[14:24:50] \n============================================================\n[14:24:50] TEST 10: Budget Update\n[14:24:50] ============================================================\n[14:24:50] \u274c FAILED: Budget Update\n[14:24:50]    Error: Budget ID not set\n[14:24:50] \n============================================================\n[14:24:50] TEST 11: Budget Delete\n[14:24:50] ============================================================\n[14:24:50] \u274c FAILED: Budget Delete\n[14:24:50]    Error: Budget ID not set\n[14:24:50] \n============================================================\n[14:24:50] RESULTS: 5/11 tests passed\n[14:24:50] ============================================================\n"
+  },
+  {
+   "file": "backend/backend_test_g4_comprehensive.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 7.5,
+   "passed": 106,
+   "total": 106,
+   "errors": [],
+   "tail": "nts/ar_receipt has sign_count\n  \u2713 pdf/documents/ar_receipt has esignable\n\n[TEST 7] GET /api/pdf/render/{doc_type}/{source_id}?format=html \u2014 HTML with refs block + QR\n  \u2713 pdf/render invoice HTML returns 200\n  \u2713 pdf/render HTML has refs block\n  \u2713 pdf/render HTML has 'Merujuk:'\n  \u2713 pdf/render HTML has QR code\n  \u2713 pdf/render delivery_note HTML returns 200\n  \u2713 pdf/render purchase_order HTML returns 200\n\n[TEST 8] E-Sign Flow: request \u2192 verify \u2192 public verification\n  \u2713 esign/request returns 200\n  \u2713 esign/request has request_id\n  \u2713 esign/request has channel\n  \u2713 esign/verify returns 200\n  \u2713 esign/verify has verification_code\n  \u2713 esign/verify has doc_hash (SHA-256)\n  \u2713 esign/verify/{code} public access returns 200\n  \u2713 esign/verify public has valid=True\n  \u2713 esign/verify public has signers\n  \u2713 esign signer has role (JABATAN)\n  \u2713 esign signer has signed_at (WAKTU)\n  \u2713 pdf/render after e-sign has 'DOKUMEN TERVERIFIKASI ELEKTRONIK'\n  \u2713 pdf/render after e-sign shows JABATAN\n\n[TEST 9] Regression: existing endpoints still return refs[]\n  \u2713 GET /api/sales-orders returns 200\n  \u2713 sales-orders items have refs[] field\n  \u2713 GET /api/purchase-orders returns 200\n  \u2713 GET /api/vendor-bills returns 200\n  \u2713 GET /api/ar-receipts returns 200\n  \u2713 GET /api/wms/tasks returns 200\n\n================================================================================\nTEST SUMMARY\n================================================================================\nTotal Tests: 106\nPassed: 106\nFailed: 0\n\n\u2705 ALL TESTS PASSED!\n"
+  },
+  {
+   "file": "backend/backend_test_g6.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 1.2,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u274c [FAIL] POST sync-g6 without auth should return 401/403, got 200",
+    "  \u274c POST sync-g6 without auth should return 401/403, got 200"
+   ],
+   "tail": "=======================================\n\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2139\ufe0f  Found 0 interco transactions\n  \u2705 [PASS] Setup references: received=False, draft=False, confirmed=False\n\n----------------------------------------------------------------------\nTesting G-6 Features\n----------------------------------------------------------------------\n\n  \u2139\ufe0f  Skipping journal test for received transaction (no received transaction found)\n  \u2139\ufe0f  Skipping journal test for draft transaction (no draft transaction found)\n  \u2139\ufe0f  First sync-g6 call: created=0, updated=0, skipped=0\n  \u2705 [PASS] POST sync-g6 idempotent (second call created=0)\n  \u274c [FAIL] POST sync-g6 without auth should return 401/403, got 200\n  \u2139\ufe0f  Skipping warehouse task test (no confirmed transaction found)\n  \u2139\ufe0f  Skipping warehouse task draft test (no draft transaction found)\n  \u2139\ufe0f  Skipping receive test (no confirmed transaction found)\n  \u2139\ufe0f  Skipping cancel test (no confirmed transaction found)\n  \u2139\ufe0f  Skipping internal contract test (missing references)\n  \u2705 [PASS] GET /interco/summary - 200\n  \u2705 [PASS] GET /interco/transactions - 200\n  \u2705 [PASS] GET /interco/accounts - 200\n  \u2705 [PASS] GET /interco/settlements - 200\n  \u2705 [PASS] GET /interco/meta - 200\n  \u2705 [PASS] GET /interco/contracts - 200\n\n======================================================================\n\ud83d\udcca Tests passed: 9/10\n======================================================================\n\nFailed tests:\n  \u274c POST sync-g6 without auth should return 401/403, got 200\n\n"
+  },
+  {
+   "file": "backend/backend_test_g6_iter192.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 0.5,
+   "passed": 1,
+   "total": 2,
+   "errors": [
+    "  \u274c [FAIL] No confirmed transaction without warehouse task found",
+    "  HASIL: 1 PASS | 1 FAIL",
+    "\u274c FAILED TESTS:"
+   ],
+   "tail": "\n======================================================================\n  BACKEND API TEST \u2014 FASE G-6 Iteration 192\n======================================================================\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2139\ufe0f  Finding 'confirmed' transaction for testing...\n  \u274c [FAIL] No confirmed transaction without warehouse task found\n\n======================================================================\n  HASIL: 1 PASS | 1 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - No confirmed transaction without warehouse task found\n"
+  },
+  {
+   "file": "backend/backend_test_h1.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 4.8,
+   "passed": 27,
+   "total": 28,
+   "errors": [
+    "\u274c   FAILED - Expected 200, got 403",
+    "\u274c   Response: {'detail': 'Permission ditolak: hr.view'}",
+    "\u274c Failed: 1"
+   ],
+   "tail": "S endpoints (warehouse user)...\n\u2139\ufe0f Test #23: GET hr/attendance/me (ESS - my attendance)\n\u2705   PASSED (status: 200)\n\u2139\ufe0f   Employee: Eko Prasetyo\n\u2139\ufe0f   Shift: Shift Reguler (08:00-17:00)\n\u2139\ufe0f   Today record: none\n\u2139\ufe0f \nAttempting clock-in (may 409 if already done today)...\n\u2139\ufe0f Test #24: POST hr/attendance/clock-in (ESS)\n\u2705   PASSED (status: 200)\n\n======================================================================\nPHASE 11: RBAC - PERMISSION TESTS\n======================================================================\n\u2139\ufe0f Testing RBAC - sales should NOT be able to manage attendance...\n\u2139\ufe0f Test #25: POST hr/shifts as SALES (should 403)\n\u2705   PASSED (status: 403)\n\u2139\ufe0f Test #26: POST hr/geofences as SALES (should 403)\n\u2705   PASSED (status: 403)\n\u2139\ufe0f Test #27: GET hr/shifts as SALES (should 200 - view only)\n\u274c   FAILED - Expected 200, got 403\n\u274c   Response: {'detail': 'Permission ditolak: hr.view'}\n\u2139\ufe0f Test #28: POST hr/shifts as MANAGER (should 200)\n\u2705   PASSED (status: 200)\n\n======================================================================\nH1 ATTENDANCE MODULE - TEST SUMMARY\n======================================================================\nTotal Tests: 28\n\u2705 Passed: 27\n\u274c Failed: 1\nSuccess Rate: 96.4%\n\n======================================================================\nFAILURES:\n======================================================================\n1. GET hr/shifts as SALES (should 200 - view only): Expected 200, got 403\n======================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_ica_directional.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 2.6,
+   "passed": null,
+   "total": null,
+   "errors": [],
+   "tail": "========================================\n\n\ud83d\udd0d Testing Get reminders...\n\u2705 Passed - Status: 200\n\u2705 Reminders structure correct\n   Total rows: 0\n   Overdue: 0\n   Checked: 0\n\n============================================================\nTEST 5: POST /api/interco/accounts/{payer}/{payee}/remind\n============================================================\n\n\ud83d\udd0d Testing Get accounts...\n\u2705 Passed - Status: 200\n\u26a0\ufe0f  No payable accounts with outstanding > 0\n\n============================================================\nTEST 6: RBAC - Sales user on returns endpoints\n============================================================\n\u2705 GET /api/interco/returns correctly returns 403 for sales\n\u2705 POST /api/interco/returns correctly returns 403 for sales\n\n============================================================\nTEST 7: Regression - Other Interco Endpoints\n============================================================\n\n\ud83d\udd0d Testing Transactions...\n\u2705 Passed - Status: 200\n\n\ud83d\udd0d Testing Settlements...\n\u2705 Passed - Status: 200\n\n\ud83d\udd0d Testing Returns...\n\u2705 Passed - Status: 200\n\n\ud83d\udd0d Testing Margin Report...\n\u2705 Passed - Status: 200\n\n============================================================\nCLEANUP: Removing test data\n============================================================\n\u26a0\ufe0f  Cleanup requires MongoDB access\n   Test data created: 0 items\n\n============================================================\n\ud83d\udcca BACKEND TESTS SUMMARY\n============================================================\nTests passed: 15/15\nSuccess rate: 100.0%\n"
+  },
+  {
+   "file": "backend/backend_test_iteration_183.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 5.3,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u274c sample_issue count is 1 (per baseline) \u2014 count=2",
+    "  \u274c sample_issue references KSC/SMP-00001 \u2014 ref=KSC/SMP-00029",
+    "  \u274c onboarding (admin) has no forbidden English words \u2014 found: ['Complete', 'Create']"
+   ],
+   "tail": "ng returns data\n  \u2705 GET /rnd/meta returns 200\n  \u2705 GET /rnd/meta returns data\n  \u2705 GET /rnd/specs returns 200\n  \u2705 GET /rnd/specs returns data\n  \u2705 GET /rnd/samples returns 200\n  \u2705 GET /rnd/samples returns data\n  \u2705 GET /supplier-contracts returns 200\n  \u2705 GET /supplier-contracts returns data\n  \u2705 GET /documents/ref-types returns 200\n  \u2705 GET /documents/ref-types returns data\n\n=== TEST: Data baseline verification ===\n  \u274c sales_orders count = 9 (baseline) \u2014 count=8\n  \u274c inventory_movements count = 39 (baseline) \u2014 count=61\n  \u274c products count = 18 (baseline) \u2014 count=21\n\n================================================================================\nRESULTS: PASS 50 / FAIL 10\n\nFAILURES:\n  \u00b7 sample_issue count is 1 (per baseline) :: count=2\n  \u00b7 sample_issue references KSC/SMP-00001 :: ref=KSC/SMP-00029\n  \u00b7 onboarding (admin) has no forbidden English words :: found: ['Complete', 'Create']\n  \u00b7 onboarding (sales) has no forbidden English words :: found: ['Complete', 'Create']\n  \u00b7 onboarding (warehouse) has no forbidden English words :: found: ['inbound', 'outbound', 'Advance', 'Check', 'Complete']\n  \u00b7 onboarding (manager) has no forbidden English words :: found: ['Check', 'Complete']\n  \u00b7 GET /warehouse-transfers returns 200 :: status=404 {\"detail\":\"Not Found\"}\n  \u00b7 sales_orders count = 9 (baseline) :: count=8\n  \u00b7 inventory_movements count = 39 (baseline) :: count=61\n  \u00b7 products count = 18 (baseline) :: count=21\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_landed_cost.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 2.9,
+   "passed": 10,
+   "total": 10,
+   "errors": [
+    "\u274c Failed: 0"
+   ],
+   "tail": "\ud83d\udd0d Test #6: POST /api/landed-costs/{id}/approve (admin tries to approve own voucher - should fail)\n\u2705 PASSED - Status: 403\n   SoD enforced: Pemisahan tugas (SoD): pembuat voucher tidak boleh menyetujui sendiri.\n\n\ud83d\udcdd Phase 8: Manager Approval\n----------------------------------------------------------------------\n\n\ud83d\udd0d Test #7: POST /api/landed-costs/{id}/approve (manager approves)\n\u2705 PASSED - Status: 200\n   Status: applied, allocations: 2\n\n\ud83d\udcdd Phase 9: Idempotency Check\n----------------------------------------------------------------------\n\n\ud83d\udd0d Test #8: POST /api/landed-costs/{id}/approve (approve again - should fail with 409)\n\u2705 PASSED - Status: 409\n   Idempotency enforced: Voucher status 'applied' tidak menunggu approval.\n\n\ud83d\udcdd Phase 10: Payment\n----------------------------------------------------------------------\n\n\ud83d\udd0d Test #9: POST /api/landed-costs/{id}/pay\n\u2705 PASSED - Status: 200\n   Status: paid, amount_paid: 800000.0\n\n\ud83d\udcdd Phase 11: Verify Voucher Detail\n----------------------------------------------------------------------\n\n\ud83d\udd0d Test #10: GET /api/landed-costs/{id} (verify final state)\n\u2705 PASSED - Status: 200\n   Voucher LCV-00004: status=paid, financials.outstanding=0.0\n\n======================================================================\n\ud83d\udcca LANDED COST TEST SUMMARY\n======================================================================\nTotal Tests: 10\n\u2705 Passed: 10\n\u274c Failed: 0\nSuccess Rate: 100.0%\n======================================================================\n\n   \ud83e\uddf9 Cleaned up test data\n"
+  },
+  {
+   "file": "backend/backend_test_m0_color.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 13.9,
+   "passed": 19,
+   "total": 20,
+   "errors": [
+    "\u274c FAILED: Expected 200, got 400: {\"detail\":\"Jenis kain (woven/knit) wajib diisi untuk stage 'Grey / Greige (Kain Mentah)'. Gramasi/GSM (gram per m\u00b2) wajib diisi untuk stage 'Grey / Greige (Kain Mentah)'. Lebar kain (mete"
+   ],
+   "tail": "/color-library/nearest invalid hex \u2192 400\n  \u2713 Invalid hex rejected with 400\n\u2705 PASSED\n\n\ud83d\udd0d Test 12: Sales can GET color-library\n  \u2713 Sales can GET colors\n\u2705 PASSED\n\n\ud83d\udd0d Test 13: Sales can POST color-library\n  \u2713 Sales can POST colors\n\u2705 PASSED\n\n\ud83d\udd0d Test 14: Warehouse can GET color-library\n  \u2713 Warehouse can GET colors\n\u2705 PASSED\n\n\ud83d\udd0d Test 15: Warehouse cannot POST color-library\n  \u2713 Warehouse cannot POST colors (got 403)\n\u2705 PASSED\n\n\ud83d\udd0d Test 16: Unauthenticated \u2192 401/403\n  \u2713 Unauthenticated access blocked (got 401)\n\u2705 PASSED\n\n\ud83d\udd0d Test 17: Products have stage field\n  \u2713 Benang product has stage=yarn\n  \u2713 Found 15 products with stage=finished\n\u2705 PASSED\n\n\ud83d\udd0d Test 18: Products have color snapshot fields\n  \u2713 Found 18 products with color snapshots\n    Sample: BTK-MEGA-001 - color_code=KN-BLU-01, color_hex=#26415E\n\u2705 PASSED\n\n\ud83d\udd0d Test 19: POST /api/products with stage + color\n\u274c FAILED: Expected 200, got 400: {\"detail\":\"Jenis kain (woven/knit) wajib diisi untuk stage 'Grey / Greige (Kain Mentah)'. Gramasi/GSM (gram per m\u00b2) wajib diisi untuk stage 'Grey / Greige (Kain Mentah)'. Lebar kain (meter) wajib diisi untuk stage 'Grey / Greige (Kain Mentah)'.\"}\n\n\ud83d\udd0d Test 20: Product templates have stage field\n  \u26a0 No product templates found\n\u2705 PASSED\n\n============================================================\nM0 COLOR LIBRARY TEST SUMMARY\n============================================================\nTests Run:    20\nTests Passed: 19\nTests Failed: 1\nSuccess Rate: 95.0%\n============================================================\n\n"
+  },
+  {
+   "file": "backend/backend_test_p4.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 1.0,
+   "passed": 8,
+   "total": 8,
+   "errors": [],
+   "tail": "\n======================================================================\nBACKEND SANITY TEST \u2014 P4 Modal Conversion\n======================================================================\n\n  \u2705 [PASS] Login admin@kainnusantara.id\n\n\ud83d\udccb Running API sanity checks...\n\n  \u2705 [PASS] GET /api/suppliers \u2192 200 (5 suppliers)\n  \u2705 [PASS] POST /api/suppliers \u2192 200 (code=SUP-00009, name=PT Uji Backend P4)\n  \u2705 [PASS] GET /api/purchase-returns \u2192 200 (2 returns)\n  \u2705 [PASS] GET /api/approval-rules \u2192 200 (7 rules)\n  \u2705 [PASS] GET /api/hr/org-units \u2192 200 (12 units)\n  \u2705 [PASS] GET /api/sales-return-policies \u2192 200 (0 policies)\n  \u2705 [PASS] GET /api/transfers \u2192 200 (3 transfers)\n\n======================================================================\nSUMMARY: 8 passed, 0 failed\n======================================================================\n\n\u2705 All backend sanity checks passed!\n"
+  },
+  {
+   "file": "backend/backend_test_p5_p2.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 1.6,
+   "passed": 10,
+   "total": 10,
+   "errors": [
+    "  HASIL: 10 PASS | 0 FAIL"
+   ],
+   "tail": "\n--- GL JOURNAL PAGINATION TESTS (US-P2-2 / BACKEND-2) ---\n  \u2139\ufe0f  Test: GET /api/gl/journal?page=2&page_size=20 (envelope)\n  \u2705 [PASS] GET /gl/journal?page=2&page_size=20 returns envelope (total=62, items=20)\n  \u2139\ufe0f  Test: GET /api/gl/journal (no params, backward compatible)\n  \u2705 [PASS] GET /gl/journal (no params) returns bare array (backward compatible, count=62)\n  \u2139\ufe0f  Test: GET /api/gl/journal page 1 vs page 2 (different content)\n  \u2705 [PASS] GET /gl/journal page 1 and page 2 return different content\n\n--- STATUS COUNTS TESTS (US-P2-3, US-P2-4 / BACKEND-3) ---\n  \u2139\ufe0f  Test: GET /api/sales-returns/status-counts\n  \u2705 [PASS] GET /sales-returns/status-counts returns correct format (all=1, statuses=['pending_approval'])\n  \u2139\ufe0f  Test: GET /api/purchase-returns/status-counts\n  \u2705 [PASS] GET /purchase-returns/status-counts returns correct format (all=4, statuses=['draft', 'pending_approval'])\n\n--- SALES ORDERS STATS TESTS (BACKEND-4) ---\n  \u2139\ufe0f  Test: GET /api/sales-orders/stats/summary\n  \u2705 [PASS] GET /sales-orders/stats/summary returns correct format (total_orders=8, backorder_count=0)\n\n--- TRANSFER CANCELLATION CONTRACT TESTS (BACKEND-5) ---\n  \u2139\ufe0f  Test: DELETE /api/transfers/{id}?reason=... contract verification\n  \u2139\ufe0f  DELETE /api/transfers/{id} succeeded without reason (might not require reason)\n\n======================================================================\n  HASIL: 10 PASS | 0 FAIL\n======================================================================\n\n\u2705 SEMUA TEST BACKEND P5+P2 LULUS\n"
+  },
+  {
+   "file": "backend/backend_test_pdf_fase3.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 5.3,
+   "passed": null,
+   "total": null,
+   "errors": [],
+   "tail": "ent_ksc (verify)...\n\u2705 PASS \u2014 GET branding ent_ksc (verify) (status: 200)\n\u2705 Branding persisted correctly\n\u2139\ufe0f \n[10] POST /api/pdf/preview (with config override)\n\u2139\ufe0f Testing POST preview...\n\u2705 PASS \u2014 POST preview (status: 200)\n\u2705 Preview HTML contains title_override and watermark\n\u2139\ufe0f \n[11] GET /api/pdf/render/sales_order/{id}?format=pdf\n\u2139\ufe0f Testing GET render PDF...\n\u2705 PASS \u2014 GET render PDF (status: 200)\n\u2705 PDF render successful (starts with %PDF)\n\u2139\ufe0f \n[12] GET /api/pdf/render/sales_order/{id}?format=html\n\u2139\ufe0f Testing GET render HTML...\n\u2705 PASS \u2014 GET render HTML (status: 200)\n\u2705 HTML render successful (len=13522)\n\u2139\ufe0f \n[13] Resolver fix \u2014 check HTML doesn't contain 'recipient_name' string\n\u2139\ufe0f Testing GET render HTML (resolver check)...\n\u2705 PASS \u2014 GET render HTML (resolver check) (status: 200)\n\u2705 PASS \u2014 HTML does NOT contain 'recipient_name'\n\u2705 PASS \u2014 HTML contains formatted address (Jl./Jakarta)\n\u2139\ufe0f \n[14] RBAC: sales user permissions\n\u2139\ufe0f Testing GET template (sales) \u2014 expect 403...\n\u2705 PASS \u2014 GET template (sales) \u2014 expect 403 (status: 403)\n\u2139\ufe0f Testing GET branding (sales) \u2014 expect 403...\n\u2705 PASS \u2014 GET branding (sales) \u2014 expect 403 (status: 403)\n\u2139\ufe0f Testing POST preview (sales) \u2014 expect 403...\n\u2705 PASS \u2014 POST preview (sales) \u2014 expect 403 (status: 403)\n\u2139\ufe0f Testing GET render PDF (sales) \u2014 expect 200...\n\u2705 PASS \u2014 GET render PDF (sales) \u2014 expect 200 (status: 200)\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TESTS PASSED: 18/18\n\u2139\ufe0f ============================================================\n"
+  },
+  {
+   "file": "backend/backend_test_phase2_forms.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 64.5,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u274c Log number starts with VHL- \u2014 ",
+    "  \u274c GET ent_kanda CA under ent_ksc returns 404 \u2014 ",
+    "\u274c 2 tests FAILED"
+   ],
+   "tail": "  \u2705 GET settlement by ID\n  \u2705 PATCH settlement (draft)\n  \u2705 POST settlement submit\n  \u2705 Settlement status = submitted\n  \u2705 POST settlement approve\n  \u2705 Settlement status = posted_to_gl\n  \u2705 Settlement journal_entry_id exists\n  \u2705 Parent CA status = settled\n  \u2705 POST settlement reject\n  \u2705 Settlement status = rejected\n\n[TEST 7] Vehicles\n  \u2705 POST vehicle\n  \u2705 Vehicle no_polisi uppercase\n  \u2705 POST vehicle with duplicate no_polisi returns 409\n  \u2705 GET vehicles list\n  \u2705 PATCH vehicle\n  \u2705 DELETE vehicle (unused)\n\n[TEST 8] Vehicle Usage Logs\n  \u2705 POST vehicle-usage-log\n  \u274c Log number starts with VHL- \u2014 \n  \u2705 Log jarak_tempuh = 150\n  \u2705 Log total = 265,000\n  \u2705 GET vehicle-usage-logs list\n  \u2705 GET vehicle-usage-logs summary\n  \u2705 Summary has grand_total\n  \u2705 Summary has per_vehicle\n  \u2705 PATCH vehicle-usage-log\n  \u2705 DELETE vehicle-usage-log\n\n[TEST 9] RBAC Negative Tests\n  \u2705 Sales can create cash-advance\n  \u2705 Sales FORBIDDEN on disburse (403)\n  \u2705 Warehouse FORBIDDEN on GET cash-advances (403)\n  \u2705 Warehouse ALLOWED on GET vehicles\n  \u2705 Warehouse ALLOWED on POST vehicles\n  \u2705 Sales FORBIDDEN on PATCH expense-categories (403)\n\n[TEST 10] Entity Scoping\n  \u2705 Create CA under ent_kanda\n  \u2705 ent_kanda CA NOT in ent_ksc list\n  \u274c GET ent_kanda CA under ent_ksc returns 404 \u2014 \n  \u2705 GET ent_kanda CA under ent_kanda works\n\n================================================================================\nRESULTS: 77/79 tests passed\n\u274c 2 tests FAILED\n================================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_po_timeline_approval.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 2.9,
+   "passed": 10,
+   "total": 14,
+   "errors": [
+    "\u274c Expected 200, got 404 - FAILED",
+    "   Error: {'detail': 'Purchase Order tidak ditemukan'}",
+    "\u274c Expected 200, got 404 - FAILED"
+   ],
+   "tail": "ASSED\n   Found legacy PO: PO-00003 (no backend timeline)\n   Frontend should synthesize timeline from timestamps\n\n\ud83d\udccb PHASE 4: Notification Generation\n\n\ud83d\udd0d Testing Generate system notifications...\n\u2705 Status 200 - PASSED\n   \u2713 Validation: \u2713 Generated 32 notifications\n\n\ud83d\udd0d Testing GET notifications (check PO approval)...\n\u2705 Status 200 - PASSED\n   Found PO approval notification: PO menunggu persetujuan: PO-00010\n   \u2713 Validation: \u2713 PO approval notification has correct action fields (action_id=po_010)\n\n\ud83d\udccb PHASE 5: PO Approval Role Gating\n\n\ud83d\udd0d Testing GET purchase orders to find waiting_approval PO...\n\u2705 Status 200 - PASSED\n   Found waiting PO: PO-00010 (id=po_010)\n\n\ud83d\udd0d Testing Approve PO po_010 as sales (expect 403)...\n\u2705 Status 403 - PASSED\n\n\ud83d\udd0d Testing Approve PO po_010 as manager...\n\u2705 Status 200 - PASSED\n   \u2713 Validation: \u274c Status is 'waiting_approval', expected 'pending'\n\n\ud83d\udd0d Testing Approve non-waiting PO po_010 (expect 409)...\n\u274c Expected 409, got 403 - FAILED\n   Error: {'detail': \"Approval PO butuh role minimal 'admin'. Role Anda: 'manager'.\"}\n\n\ud83d\udccb PHASE 6: Backend Regression\n\n\ud83d\udd0d Testing GET /api/purchase-orders (list)...\n\u2705 Status 200 - PASSED\n\n================================================================================\n\ud83d\udcca TESTS SUMMARY: 10/14 passed\n================================================================================\n\n\u274c FAILED TESTS:\n   - \u274c Expected 200, got 404 - FAILED\n   - \u274c Expected 200, got 404 - FAILED\n   - \u274c Expected 200, got 404 - FAILED\n   - \u274c Expected 409, got 403 - FAILED\n"
+  },
+  {
+   "file": "backend/backend_test_qc.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 9.0,
+   "passed": 19,
+   "total": 21,
+   "errors": [
+    "  \u274c [FAIL] QC reject return exception: 'str' object has no attribute 'get'",
+    "  \u274c [FAIL] Data integrity issues found:",
+    "SUMMARY: 19 PASS, 2 FAIL"
+   ],
+   "tail": "location rejected (400)\n  \u2705 [PASS] Validation: Both zero rejected (400)\n  \u2705 [PASS] Validation: Non-qc_pending task rejected (400)\n  \u2139\ufe0f  TEST 7: Data integrity verification\n  \u274c [FAIL] Data integrity issues found:\n\u001b[1m\u001b[96m================================================================\u001b[0m\n\u001b[1m  KN3 \u2014 DATA INTEGRITY GATE  (DB=test_database  API=http://localhost:8001)\u001b[0m\n\u001b[1m\u001b[96m================================================================\u001b[0m\n\n\u001b[96m\u001b[1mL0 \u2014 Self-check: gate vs ENTITY_REGISTRY (anti self-drift)\u001b[0m\n  \u001b[92m[PASS]\u001b[0m 68 koleksi kanonik konsisten dengan ENTITY_REGISTRY\n\n\u001b[96m\u001b[1mL1/L2 \u2014 Rekonsiliasi koleksi Seed\u2194App (butuh DB clean-seed)\u001b[0m\n  \u001b[92m[PASS]\u001b[0m users: 'users' berisi 16 d\n\n======================================================================\nSUMMARY: 19 PASS, 2 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n  - QC reject return exception: 'str' object has no attribute 'get'\n  - Data integrity issues found:\n\u001b[1m\u001b[96m================================================================\u001b[0m\n\u001b[1m  KN3 \u2014 DATA INTEGRITY GATE  (DB=test_database  API=http://localhost:8001)\u001b[0m\n\u001b[1m\u001b[96m================================================================\u001b[0m\n\n\u001b[96m\u001b[1mL0 \u2014 Self-check: gate vs ENTITY_REGISTRY (anti self-drift)\u001b[0m\n  \u001b[92m[PASS]\u001b[0m 68 koleksi kanonik konsisten dengan ENTITY_REGISTRY\n\n\u001b[96m\u001b[1mL1/L2 \u2014 Rekonsiliasi koleksi Seed\u2194App (butuh DB clean-seed)\u001b[0m\n  \u001b[92m[PASS]\u001b[0m users: 'users' berisi 16 d\n"
+  },
+  {
+   "file": "backend/backend_test_qc_4point.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 4.6,
+   "passed": 10,
+   "total": 12,
+   "errors": [
+    "\u274c FAIL: Inspect Grade B",
+    "\u274c FAIL: Inspect Grade C",
+    "TEST SUMMARY: 10 PASSED | 2 FAILED | 12 TOTAL"
+   ],
+   "tail": "kend Tests - Phase 6.2\n======================================================================\n\n=== Test 1: Login as Admin ===\n\u2705 PASS: Admin login successful\n\n=== Test 2: Login as Sales User ===\n\u2705 PASS: Sales user login successful\n\n=== Test 3: GET Grade Thresholds ===\n\u2705 PASS: Grade thresholds correct (a_max=20.0, b_max=40.0)\n\n=== Test 4: GET QC Queue ===\n\u2705 PASS: QC queue has 1 qc_pending task(s), task_id=wms_37690dd5e07b\n\n=== Test 5: GET Task Rolls ===\n\u2705 PASS: Task rolls has 1 roll(s) with all required fields, roll_id=roll_657afc73d998\n\n=== Test 6: Inspect Roll - Grade A (10 points) ===\n\u2705 PASS: Inspect Grade A: points=10, grade=A\n\n=== Test 7: Inspect Roll - Grade B (30 points) ===\n\u274c FAIL: Inspect Grade B\n   Reason: Expected points=30, grade=B, got points=30.0, grade=A2\n\n=== Test 8: Inspect Roll - Grade C (48 points) ===\n\u274c FAIL: Inspect Grade C\n   Reason: Expected points=48, grade=C, got points=48.0, grade=BS\n\n=== Test 9: Boundary Test - 20 points -> Grade A ===\n\u2705 PASS: Boundary 20 points: grade=A\n\n=== Test 10: Boundary Test - 40 points -> Grade B ===\n\u2705 PASS: Boundary 40 points: grade=B\n\n=== Test 11: Validation - Invalid point_value ===\n\u2705 PASS: Invalid point_value: correctly returns 400\n\n=== Test 12: Permission Test - Sales User ===\n\u2705 PASS: Sales permission: correctly returns 403 (forbidden)\n\n======================================================================\nTEST SUMMARY: 10 PASSED | 2 FAILED | 12 TOTAL\n======================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_r1_05_06.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 2.4,
+   "passed": 4,
+   "total": 5,
+   "errors": [
+    "\u274c FAILED - Expected 200, got 400",
+    "\u274c Failed: 1"
+   ],
+   "tail": "07438372dc8b\n\n\ud83d\udd0d Test #3: R1-06-3: Cumulative overflow blocked (16+20=36 > 30)\n   POST sales-returns\n   Response: 400\n\u2705 PASSED\n\n======================================================================\n\ud83e\uddea R1-05: REORDER SUGGESTIONS ANTI-DUPLICATE PR TESTS\n======================================================================\nTesting product prod_benang_katun (BNG-KTN-001):\n  - Reorder point: 250, Available: ~90\n\n\ud83d\udd0d Test #4: R1-05-1: Reorder suggestions have on_request & existing_prs fields\n   GET purchase-requisitions/reorder-suggestions?entity_id=ent_ksc\n   Response: 200\n   \u2713 All 6 items have 'on_request' and 'existing_prs' fields\n\u2705 PASSED\n\n\ud83d\udd0d Test #5: R1-05-2: Create open PR for prod_benang_katun (qty=100)\n   POST purchase-requisitions\n   Response: 400\n\u274c FAILED - Expected 200, got 400\n   Response body: {\"detail\":\"Konversi 'meter' \u2192 'kg' belum punya aturan untuk produk BNG-KTN-001. Tambahkan aturan di Produk & Harga \u2192 Konversi Satuan, atau isi gramasi & lebar produk (untuk konversi panjang \u2194 berat).\"}\n\u26a0\ufe0f  Skipping R1-05-3: Previous test failed to create PR\n\u26a0\ufe0f  Skipping R1-05-4: Previous test failed\n\u26a0\ufe0f  Skipping R1-05-5: Previous test failed\n\n======================================================================\n\ud83d\udcca TEST SUMMARY\n======================================================================\nTotal tests run: 5\n\u2705 Passed: 4\n\u274c Failed: 1\n\nFailed tests:\n  - R1-05-2: Create open PR for prod_benang_katun (qty=100)\n======================================================================\n"
+  },
+  {
+   "file": "backend/backend_test_r5_4b.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 3.5,
+   "passed": null,
+   "total": null,
+   "errors": [],
+   "tail": "============================================================\nR5.4b Backend API Tests\n============================================================\n\n=== Testing Authentication ===\n\u2705 Admin login successful\n\u2705 Sales login successful\n\n=== Testing Purchase Returns List ===\n\u2705 GET /purchase-returns returns 200\n\u2705 Purchase returns response has items\n\n=== Testing Sales Returns List ===\n\u2705 GET /sales-returns returns 200\n\u2705 Sales returns response has items\n\n=== Testing Purchase Return Reversal RBAC ===\n\u26a0\ufe0f  No finalized purchase returns available for RBAC test\n\n=== Testing Write-off Reversal RBAC ===\n\u2705 Sales role forbidden for write-off reversal\n\u2705 Admin can access write-off reversal endpoint\n\n=== Testing R5.4 Regression (Existing Endpoints) ===\n\u2705 R5.4 sales return reversal endpoint exists\n\n============================================================\nResults: 9/9 tests passed\n============================================================\n"
+  },
+  {
+   "file": "backend/backend_test_r6_3_budget.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 14.1,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "\u274c FAILED - Expected 200, got 400",
+    "\u274c   Error: {'detail': 'Anggaran untuk kombinasi entitas/tahun/bulan/kunci ini sudah ada \u2014 ubah saja.'}",
+    "\u274c FAILED - Expected 400, got 422"
+   ],
+   "tail": "] Set rules to mode=block...\n\u2705 PASSED - Status: 200\n\u2139\ufe0f Testing [admin] Create over-budget PO with mode=block (should fail 400)...\n\u2705 PASSED - Status: 400\n\u2139\ufe0f Testing [admin] Set rules to mode=off...\n\u2705 PASSED - Status: 200\n\u2139\ufe0f Testing [admin] Create PO with mode=off (should succeed)...\n\u274c FAILED - Expected 200, got 400\n\u274c   Error: {'detail': 'Item BTK-MEGA-001: Grade yang diharapkan wajib dipilih untuk setiap item (tidak ada nilai default) \u2014 pilihan: A, A1, A2, B, BS.'}\n\u2139\ufe0f \n=== PHASE 7: RBAC ===\n\u2139\ufe0f Testing [sales] Sales cannot list budgets (403)...\n\u2705 PASSED - Status: 403\n\u2139\ufe0f Testing [sales] Sales cannot get budget report (403)...\n\u2705 PASSED - Status: 403\n\u2139\ufe0f Testing [sales] Sales cannot get budget rules (403)...\n\u2705 PASSED - Status: 403\n\u2139\ufe0f Testing [warehouse] Warehouse cannot list budgets (403)...\n\u2705 PASSED - Status: 403\n\u2139\ufe0f Testing [warehouse] Warehouse cannot get budget report (403)...\n\u2705 PASSED - Status: 403\n\u2139\ufe0f Testing [manager] Manager can list budgets...\n\u2705 PASSED - Status: 200\n\u2139\ufe0f Testing [manager] Manager can get budget report...\n\u2705 PASSED - Status: 200\n\u2139\ufe0f \n=== CLEANUP ===\n\u2139\ufe0f Restoring original budget rules...\n\u2139\ufe0f Testing [admin] Restore budget rules to mode=warn...\n\u2705 PASSED - Status: 200\n\u2139\ufe0f Deleting test budget budget_706939400c08...\n\u2139\ufe0f Testing [admin] Delete budget budget_706939400c08...\n\u2705 PASSED - Status: 200\n\u2705 Cleanup complete\n\u2139\ufe0f \n============================================================\n\u274c SUMMARY: 42/47 tests passed\n\u2139\ufe0f ============================================================\n"
+  },
+  {
+   "file": "backend/backend_test_sales_returns.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 4.1,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u274c [FAIL] Confirm SO failed: 403 {\"detail\":\"Permission ditolak: order.confirm\"}"
+   ],
+   "tail": "\n======================================================================\n\ud83e\uddea SALES RETURNS API TEST \u2014 Sub-fase 1.11\n======================================================================\n\n\ud83d\udccb SETUP\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2705 [PASS] Login sales@kainnusantara.id\n  \u2705 [PASS] Setup references: entity=ent_ksc, warehouse=wh_bandu, customer=cust_tok, product=prod_bat\n  \u274c [FAIL] Confirm SO failed: 403 {\"detail\":\"Permission ditolak: order.confirm\"}\n"
+  },
+  {
+   "file": "backend/backend_test_tax_invoices.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 7.2,
+   "passed": 10,
+   "total": 10,
+   "errors": [
+    "\u274c FAILED: 0"
+   ],
+   "tail": "gin admin@kainnusantara.id (role: admin)\n\n\ud83d\udccb Testing GET /api/tax-invoices\n  \u2705 [PASS] GET /api/tax-invoices returned 2 invoices\n  \u2705 [PASS] Seeded invoice FKT-00001 found\n  \u2139\ufe0f    FKT-00001: DPP=9212500.0, PPN=1105500.0, Total=11155500.0\n  \u2705 [PASS] FKT-00001 has all required fields (DPP, PPN, Total)\n\n\ud83d\udcca Testing dashboard metrics\n  \u2139\ufe0f  Products count: 21\n  \u2139\ufe0f  Warehouses count: 3\n  \u2139\ufe0f  Dashboard shows 21 products (expected 7)\n  \u2705 [PASS] Dashboard shows 3 warehouses (as expected)\n\n\ud83d\udcdd Testing POST /api/sales-orders/{order_id}/tax-invoice\n  \u2139\ufe0f  Found eligible order: SO-0004 (status: confirmed)\n  \u2705 [PASS] Tax invoice issued: KSC/FKT-00003 for order SO-0004\n  \u2139\ufe0f    Tax invoice ID: fkt_a768c2cd6a1b\n\n\ud83d\udcc4 Testing GET /api/tax-invoices/{fkt_id}/document\n  \u2705 [PASS] Tax invoice document endpoint returns HTML (content-type: text/html; charset=utf-8)\n\n======================================================================\nTesting other user roles login\n======================================================================\n\n\ud83d\udd10 Testing login: sales@kainnusantara.id\n  \u2705 [PASS] Login sales@kainnusantara.id (role: sales)\n\n\ud83d\udd10 Testing login: manager@kainnusantara.id\n  \u2705 [PASS] Login manager@kainnusantara.id (role: manager)\n\n\ud83d\udd10 Testing login: warehouse@kainnusantara.id\n  \u2705 [PASS] Login warehouse@kainnusantara.id (role: warehouse)\n\n======================================================================\nTEST SUMMARY\n======================================================================\n\u2705 PASSED: 10\n\u274c FAILED: 0\n"
+  },
+  {
+   "file": "tests/agent_e7_fe_iteration_219.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 3.1,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "Traceback (most recent call last):",
+    "playwright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /pw-browsers/chromium_headless_shell-1228/chrome-linux/headless_shell"
+   ],
+   "tail": "^^^^^^^^^^^\n  File \"/app/tests/agent_e7_fe_iteration_219.py\", line 843, in main\n    browser = await p.chromium.launch(headless=True)\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.11/site-packages/playwright/async_api/_generated.py\", line 16546, in launch\n    await self._impl_obj.launch(\n  File \"/root/.venv/lib/python3.11/site-packages/playwright/_impl/_browser_type.py\", line 97, in launch\n    await self._channel.send(\n  File \"/root/.venv/lib/python3.11/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/.venv/lib/python3.11/site-packages/playwright/_impl/_connection.py\", line 563, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: BrowserType.launch: Executable doesn't exist at /pw-browsers/chromium_headless_shell-1228/chrome-linux/headless_shell\n\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551 Looks like Playwright was just installed or updated.       \u2551\n\u2551 Please run the following command to download new browsers: \u2551\n\u2551                                                            \u2551\n\u2551     playwright install                                     \u2551\n\u2551                                                            \u2551\n\u2551 <3 Playwright Team                                         \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n"
+  },
+  {
+   "file": "tests/backend_g9_test.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 11.9,
+   "passed": null,
+   "total": null,
+   "errors": [],
+   "tail": "\n   Status: 200, Cases: 3\n\u2705 PASS: GET /finance-cases?status=open filters correctly\n   Status: 200, Open cases: 0\n\u2705 PASS: GET /finance-cases?overdue_only=true works\n   Status: 200, Overdue cases: 1\n\u2705 PASS: US1: Sales role can view case stats (RBAC)\n   Status: 200\n\n============================================================\nTEST 3: GUARDS & VALIDATION (US3, US5, BUG-FIX-2)\n============================================================\n\u2705 PASS: BUG-FIX-2: Irrelevant reason code is rejected with helpful message\n   Status: 400, Response contains 'nyambung': True\n\u2705 PASS: US3: Resolve without reason is rejected\n   Status: 400\n\u2705 PASS: US5: Sales role cannot resolve cases (RBAC)\n   Status: 403\n\n============================================================\nTEST 4: CROSS-ENTITY ISOLATION (US11)\n============================================================\n\u2705 PASS: US11: Cases are isolated by entity\n   KSC cases: 3, Kanda cases: 0\n\u2705 PASS: US11: Cannot access case from different entity\n   Status: 403\n\n============================================================\nTEST 5: AUTO CASE CREATION (US4)\n============================================================\n\u2705 PASS: US4: POST /finance-cases/scan executes successfully\n   Status: 200, Holding cases: 0, Duplicate cases: 0\n\u2705 PASS: US4: Scan is idempotent (skips existing cases)\n   Status: 200, Skipped: 1\n\n============================================================\nSUMMARY: 19/19 tests passed\n============================================================\n"
+  },
+  {
+   "file": "tests/backend_test_catch_weight.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 2.3,
+   "passed": 1,
+   "total": 2,
+   "errors": [
+    "\u274c Create product with gramasi & lebar",
+    "\u274c Cannot proceed without product",
+    "  \u274c Create product with gramasi & lebar"
+   ],
+   "tail": "============================================================\nBACKEND TEST: Fase 8 \u2014 Catch-weight / Dual-UoM\n============================================================\n\u2705 Login\n\n--- CATCH-WEIGHT E2E FLOW ---\n\u274c Create product with gramasi & lebar\n   Details: Status 400: {\"detail\":\"Jenis kain (woven/knit) wajib diisi untuk stage 'Finished (Jadi \u2014 dyed/printed)'.\"}\n\u274c Cannot proceed without product\n\n============================================================\nBACKEND CATCH-WEIGHT TEST SUMMARY\n============================================================\nTests Run: 2\nTests Passed: 1\nTests Failed: 1\nSuccess Rate: 50.0%\n============================================================\n\nFailed Tests:\n  \u274c Create product with gramasi & lebar\n     Status 400: {\"detail\":\"Jenis kain (woven/knit) wajib diisi untuk stage 'Finished (Jadi \u2014 dyed/printed)'.\"}\n"
+  },
+  {
+   "file": "tests/backend_test_f2_f3_sales_team_delivery.py",
+   "mode": "direct",
+   "rc": 1,
+   "timeout": false,
+   "dur": 6.6,
+   "passed": 14,
+   "total": 30,
+   "errors": [],
+   "tail": "ted: Anggota sales tim tidak boleh duplikat.\n\n--------------------------------------------------------------------------------\nF3: DELIVERY DATE VALIDATION TESTS\n--------------------------------------------------------------------------------\n\n\ud83d\udd0d Testing delivery date validation: past date\n\u2705 PASS: Correctly rejected: Tanggal pengiriman tidak boleh di masa lalu.\n\n--------------------------------------------------------------------------------\nF2+F3: ORDER CREATION TESTS\n--------------------------------------------------------------------------------\n\n\ud83d\udd0d Testing empty sales_team fallback to customer default\n\u2705 PASS: Order created but sales_team is empty (customer may not have default team)\n\ud83d\udd0d Testing order retrieval for ID: so_12323c7caa95\n\u2705 PASS: Order retrieved: KSC/SO-00015\n\ud83d\udd0d   - Sales team: 0 member(s)\n\ud83d\udd0d   - Delivery date: (not set)\n\ud83d\udd0d Testing valid custom sales team (PIC 60% + co 40%) with future delivery date\n\u2705 PASS: Order created: KSC/SO-00016 (ID: so_22a2308edf5f)\n\u2705 PASS: Sales team correct: 2 members, 1 PIC, total split 100.0%\n\u2705 PASS: Delivery date correct: 2026-09-06\n\ud83d\udd0d Testing order retrieval for ID: so_22a2308edf5f\n\u2705 PASS: Order retrieved: KSC/SO-00016\n\ud83d\udd0d   - Sales team: 2 member(s)\n\ud83d\udd0d     [0] Sales A (pic) - 60.0%\n\ud83d\udd0d     [1] Sales B (co) - 40.0%\n\ud83d\udd0d   - Delivery date: 2026-09-06\n\n================================================================================\nBACKEND TESTS SUMMARY: 14/30 passed\n================================================================================\n\n"
+  },
+  {
+   "file": "tests/backend_test_p2_bugfixes.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 53.6,
+   "passed": null,
+   "total": null,
+   "errors": [
+    "  \u001b[92mPASS 15\u001b[0m  |  \u001b[91mFAIL 0\u001b[0m  |  \u001b[93mWARN 5\u001b[0m"
+   ],
+   "tail": "mWMS Off-flow Status Rejection\u001b[0m\n  \u001b[93m[WARN]\u001b[0m WMS-OFF-FLOW \u2014 Off-flow status test requires manual task creation (skipped in automated test)\n\n\u001b[96m\u001b[1mKN-076-COGS-ZERO \u2014 GL posts COGS for revenue orders\u001b[0m\n  \u001b[92m[PASS]\u001b[0m COGS-ZERO-1 \u2014 GL sync completed: 0 journals posted\n  \u001b[92m[PASS]\u001b[0m COGS-ZERO-2 \u2014 COGS account (5-1000) has 2 entries, total debit: 7,551,000.00\n  \u001b[93m[WARN]\u001b[0m COGS-ZERO-3 \u2014 COGS account not found in trial balance\n\n\u001b[96m\u001b[1mKN-076-AR-GL-DRIFT \u2014 AR reconciles per entity\u001b[0m\n  \u001b[92m[PASS]\u001b[0m AR-GL-DRIFT-1 \u2014 GL sync completed\n  \u001b[93m[WARN]\u001b[0m AR-GL-DRIFT-2 \u2014 ent_ksc: AR account not found (may be zero)\n  \u001b[93m[WARN]\u001b[0m AR-GL-DRIFT-3 \u2014 ent_kanda: AR account not found (may be zero)\n  \u001b[93m[WARN]\u001b[0m AR-GL-DRIFT-4 \u2014 Uang Muka Pelanggan (2-1400) not found\n  \u001b[92m[PASS]\u001b[0m AR-GL-DRIFT-5 \u2014 Trial balance balanced: debit=0.00, credit=0.00\n\n\u001b[96m\u001b[1mREGRESSION \u2014 AR Receipt Creation\u001b[0m\n  \u001b[92m[PASS]\u001b[0m AR-RECEIPT-1 \u2014 Found unpaid order KSC/SO-00016 with outstanding 2,245,734.24\n  \u001b[92m[PASS]\u001b[0m AR-RECEIPT-2 \u2014 AR receipt created: KSC/AR-00007 for 100,000.00\n  \u001b[92m[PASS]\u001b[0m AR-RECEIPT-3 \u2014 Order updated: paid_total=100,000.00, 1 payment(s)\n\n\u001b[96m\u001b[1mREGRESSION \u2014 GL Trial Balance Integrity\u001b[0m\n  \u001b[92m[PASS]\u001b[0m GL-INTEGRITY-1 \u2014 Trial balance balanced: debit=0.00, credit=0.00\n\n\u001b[1m================================================================================\u001b[0m\n  \u001b[92mPASS 15\u001b[0m  |  \u001b[91mFAIL 0\u001b[0m  |  \u001b[93mWARN 5\u001b[0m\n  \u001b[92m\u001b[1mALL TESTS PASSED\u001b[0m\n\n"
+  },
+  {
+   "file": "tests/backend_test_security.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 14.4,
+   "passed": 24,
+   "total": 24,
+   "errors": [
+    "\u274c Failed: 0"
+   ],
+   "tail": "=============================================================================\nTEST GROUP 3: IDOR READ PROTECTION - SALES ORDERS (KN-076)\n================================================================================\n\u26a0\ufe0f  No foreign entity SO found for testing\n\n================================================================================\nTEST GROUP 4: IDOR WRITE PROTECTION - INBOUND TASKS (KN-076)\n================================================================================\n\u26a0\ufe0f  No foreign entity inbound task found for testing\n\n================================================================================\nTEST GROUP 5: NUMERIC BOUNDS VALIDATION (KN-079)\n================================================================================\n\u2705 PASS: Negative credit_limit rejected\n\u2705 PASS: Negative product price rejected\n\u2705 PASS: Invalid payment terms rejected\n\u2705 PASS: Valid customer creation\n\n================================================================================\nTEST GROUP 6: LEGITIMATE FLOW REGRESSION CHECK\n================================================================================\n\u2705 PASS: Admin Dashboard\n\u2705 PASS: Admin Products list\n\u2705 PASS: Admin Customers list\n\u2705 PASS: Admin Sales orders list\n\u2705 PASS: Admin Purchase orders list\n\n================================================================================\nTEST SUMMARY\n================================================================================\nTotal tests run: 24\n\u2705 Passed: 24\n\u274c Failed: 0\nSuccess rate: 100.0%\n"
+  },
+  {
+   "file": "tests/backend_test_special_orders.py",
+   "mode": "direct",
+   "rc": 0,
+   "timeout": false,
+   "dur": 3.5,
+   "passed": 17,
+   "total": 17,
+   "errors": [
+    "Failed: 0 \u274c"
+   ],
+   "tail": "pecial orders (initial)\n\ud83d\udd0d Testing: Create special order below threshold\n\u2705 PASSED: Create special order below threshold\n\ud83d\udd0d Testing: Create special order above threshold\n\u2705 PASSED: Create special order above threshold\n\ud83d\udd0d Testing: Get special order detail\n\u2705 PASSED: Get special order detail\n\ud83d\udd0d Testing: List with status filter\n\u2705 PASSED: List with status filter\n\ud83d\udd0d Testing: Update draft order (PATCH)\n\u2705 PASSED: Update draft order (PATCH)\n\ud83d\udd0d Testing: Approve special order (manager)\n\u2705 PASSED: Approve special order (manager)\n\ud83d\udd0d Testing: Status transition: confirmed \u2192 in_production\n\u2705 PASSED: Status transition: confirmed \u2192 in_production\n\ud83d\udd0d Testing: Status transition: in_production \u2192 ready\n\u2705 PASSED: Status transition: in_production \u2192 ready\n\ud83d\udd0d Testing: Status transition: ready \u2192 shipped\n\u2705 PASSED: Status transition: ready \u2192 shipped\n\ud83d\udd0d Testing: Status transition: shipped \u2192 done\n\u2705 PASSED: Status transition: shipped \u2192 done\n\ud83d\udd0d Testing: Reject special order\n\u2705 PASSED: Reject special order\n\ud83d\udd0d Testing: Delete draft order (soft delete)\n\u2705 PASSED: Delete draft order (soft delete)\n\ud83d\udd0d Testing: Invalid status transition\n\u2705 PASSED: Invalid status transition\n\ud83d\udd0d Testing: Sales cannot approve orders\n\u2705 PASSED: Sales cannot approve orders\n\n======================================================================\n\ud83d\udcca TEST SUMMARY\n======================================================================\nTotal Tests: 17\nPassed: 17 \u2705\nFailed: 0 \u274c\nSuccess Rate: 100.0%\n======================================================================\n\n"
+  }
+ ]
+}

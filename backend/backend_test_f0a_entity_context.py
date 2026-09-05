@@ -12,12 +12,13 @@ Tests the multi-entity foundation implementation including:
 7. Regression testing - existing auth still works
 8. Regression testing - existing protected endpoints still work
 """
+import os
 import requests
 import sys
 from typing import Dict, Any, Optional
 
 # Use PUBLIC endpoint
-BASE_URL = "https://po-pdf-sender.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 
 # Test credentials
 CREDENTIALS = {

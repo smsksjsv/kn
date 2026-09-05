@@ -8,11 +8,12 @@ Tests all R&D endpoints with focus on:
 4. issue-material inventory movements
 5. Auto-contract creation on decide
 """
+import os
 import sys
 import requests
 from datetime import datetime, timedelta
 
-BASE_URL = "https://kn-product-hub.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 PWD = "demo12345"
 
 USERS = {

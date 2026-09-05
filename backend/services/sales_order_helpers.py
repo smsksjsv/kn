@@ -182,10 +182,18 @@ async def so_transition(
     update_data = {"status": new_status, "updated_at": now_iso(), **extra_data}
     # F4 — sinkronkan stage + sub_status (turunan dari status final + konteks).
     update_data.update(stage_fields({**order, **update_data}))
+    # INV-ATOMIC-01 — CAS: tulisan akhir berprasyarat status yang tadi dibaca, dan sekaligus
+    # mencabut `saga_lock` bila endpoint pemanggil mengklaimnya (T-01 Opsi B).
     order = await db.sales_orders.find_one_and_update(
-        {"id": order_id}, {"$set": update_data},
+        {"id": order_id, "status": {"$in": expected_from}},
+        {"$set": update_data, "$unset": {"saga_lock": ""}},
         projection={"_id": 0}, return_document=ReturnDocument.AFTER
     )
+    if not order:
+        raise HTTPException(status_code=409, detail={
+            "code": "INVALID_TRANSITION",
+            "message": f"Pesanan berubah status oleh proses lain sebelum aksi '{action}' selesai. Muat ulang layar.",
+            "attempted_action": action, "allowed_from": expected_from})
     await audit(actor_name, action, "sales_order", order_id, {"status": new_status})
     return order
 

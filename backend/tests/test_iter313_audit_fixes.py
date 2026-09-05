@@ -16,7 +16,7 @@ import os
 import pytest
 import requests
 
-BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://audit-improve-6.preview.emergentagent.com").rstrip("/")
+BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", os.environ["REACT_APP_BACKEND_URL"]).rstrip("/")
 API = f"{BASE_URL}/api"
 # Direct backend URL — the k8s ingress rewrites Set-Cookie (Secure; SameSite=None; Partitioned)
 # and Access-Control-Allow-Origin (*) on the public URL. To verify the *application-level*

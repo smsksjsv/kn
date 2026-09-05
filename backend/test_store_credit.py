@@ -3,11 +3,12 @@
 R5.2 Store Credit Backend API Test
 Tests all store credit endpoints and flows
 """
+import os
 import requests
 import sys
 from datetime import datetime
 
-BASE_URL = "https://supplier-rma-portal.preview.emergentagent.com/api"
+BASE_URL = os.environ["REACT_APP_BACKEND_URL"] + "/api"
 TEST_USER = {"email": "admin@kainnusantara.id", "password": "demo12345"}
 
 class StoreCreditTester:
